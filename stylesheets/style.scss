@@ -1,0 +1,214 @@
+@use "sass:color"; // for color function (fade-out)
+/* -------------------------------------------------------------------------- */
+/*                                  RESET CSS                                 */
+/* -------------------------------------------------------------------------- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    line-height: 1;
+    appearance: none;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+a {
+    color: unset;
+    text-decoration: none;
+}
+
+button {
+    background: unset;
+    border: none;
+    cursor: pointer;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                                   GENERAL                                  */
+/* -------------------------------------------------------------------------- */
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.modal-hidden {
+    display: none;
+}
+
+.modal-active {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 80%;
+    height: 80svh;
+    z-index: 100;
+    transform: translate(-50%, -50%);
+}
+
+/* ---------------------------- LOADING ANIMATION --------------------------- */
+.loader {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: #373737;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    .dot {
+        background-color: #1e1e1e;
+        border-radius: 100vh;
+        width: 1em;
+        height: 1em;
+        animation: loader 1s linear infinite;
+        box-shadow: 3px 5px 6px fade-out($color: #1e1e1e, $amount: 0.4);
+        transform: translateY(50%) scale(1);
+        @for $i from 1 through 3 {
+            &:nth-child(#{$i+1}) {
+                animation-delay: $i*200ms;
+            }
+        }
+    }
+    .loaded {
+        background-color: green;
+    }
+}
+
+
+/* --------------------------------- THREEJS -------------------------------- */
+.render-container {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    canvas {
+        width: 100%;
+        height: 100%;
+
+    }
+}
+
+/* -------------------------------- CAROUSSEL -------------------------------- */
+.caroussel {
+    margin: 0 auto;
+    position: relative;
+    aspect-ratio: 16 / 10;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    background-color: #1e1e1e;
+    border: 1px solid #1e1e1e;
+    box-shadow: 5px 5px 5px fade-out($color: #1e1e1e, $amount: 0.4);
+}
+
+.images {
+    & > * {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .hidden {
+        animation: hide-img 500ms forwards;
+    }
+    .active {
+        animation: display-img 500ms forwards;
+    }
+}
+
+/* NAVIGATION */
+.nav, .auto > button {
+    position: absolute;
+    width: 2em;
+    height: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.5rem;
+    background-color: #1e1e1e;
+    border-radius: 50%;
+    transition: transform 200ms;
+}
+
+/* play/pause */
+.auto > button {
+    bottom: 1em;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    &:hover {
+        cursor: pointer;
+        transform: translateX(-50%) scale(1.05);
+    }
+}
+
+.auto.play > #pause { display: flex; }
+.auto.pause > #play { display: flex; }
+
+/* prev/next */
+.nav {
+    top: 50%;
+    transform: translatey(-50%);
+    &:hover {
+        cursor: pointer;
+        transform: translateY(-50%) scale(1.05);
+    }
+}
+
+#prev { left: 0.5em }
+#next { right: 0.5em; }
+
+
+/* -------------------------------------------------------------------------- */
+/*                                  ANIMATION                                 */
+/* -------------------------------------------------------------------------- */
+@keyframes loader {
+    0% {
+        transform: translateY(50%) scale(1);
+    }
+    50% {
+        transform: translateY(-50%) scale(1.5);
+    }
+    100% {
+        transform: translateY(50%) scale(1);
+    }
+}
+
+/* IMAGES ANNIMATION */
+@keyframes hide-img {
+    0% {
+        opacity: 1;
+        display: block;
+    }
+    99% {
+        opacity: 0;
+        display: block;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
+
+@keyframes display-img {
+    0% {
+        opacity: 0;
+        display: none;
+    }
+    1% {
+        opacity: 0;
+        display: block;
+    }
+    100% {
+        opacity: 1;
+        display: block;
+    }
+}

@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "three": "^0.149.0",
+    "three.interactive": "^1.5.2"
+  }
+}

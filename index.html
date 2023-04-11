@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="test THREEJS pour voir le fonctionnement">
+    <title>THREEJS</title>
+    <link rel="stylesheet" href="./stylesheets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+</head>
+<body>
+    <div class="loader">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+    <div class="modal-hidden" id="projects">
+        <div class="caroussel">
+            <div class="images">
+                <div class="active"><img src="assets/images/image-1.jpg" alt="Paysage depuis le salève"></div>
+                <div class="hidden"><img src="assets/images/image-2.jpg" alt="rocher au salève"></div>
+                <div class="hidden"><img src="assets/images/image-3.jpg" alt="coucher de soleil depuis le salève"></div>
+                <div class="hidden"><img src="assets/images/image-4.jpg" alt="chemin des étournelles"></div>
+            </div>
+            <button id="prev" class="nav" onclick="changeSlide(-1)"><i class="fa-solid fa-angle-left"></i></button>
+            <button id="next" class="nav" onclick="changeSlide(1)"><i class="fa-solid fa-angle-right"></i></button>
+            <span class="auto pause">
+                <button id="play" onclick="play()"><i class="fa-solid fa-play"></i></button>
+                <button id="pause" onclick="pause()"><i class="fa-solid fa-pause"></i></button>
+            </span>
+        </div>
+    </div>
+    <div class="render-container">
+        <canvas></canvas>
+    </div>
+    <!-- <script src="script/app.js"></script> -->
+    <script src="./script/index.js" type="module"></script>
+</body>
+</html>
