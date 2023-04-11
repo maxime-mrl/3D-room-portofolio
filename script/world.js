@@ -34,10 +34,10 @@ export default class World { // World is everithing regarding 3D world after ini
         this.setInteractions("screen-video", () => openModal("projects"));
         this.setInteractions("lamp", () => this.environment.toggleLight(bedLight));
         this.setInteractions("desk_lamp", () => this.environment.toggleLight(deskLight));
-        this.setInteractions("globe", () => this.Animate("globe-anim", 2));
-        this.setInteractions("chair", () => this.Animate("chair-anim", 2));
-        this.setInteractions("paraglider", () => this.Animate("paraglider-anim", 10));
-        this.setInteractions("cofee-cup", () => this.Animate("cofee-anim", 2));
+        this.setInteractions("globe", () => this.Animate("globe-anim", 2, "repeat"));
+        this.setInteractions("chair", () => this.Animate("chair-anim", 2, "both-way"));
+        this.setInteractions("paraglider", () => this.Animate("paraglider-anim", 10, "reset-after"));
+        this.setInteractions("cofee-cup", () => this.Animate("cofee-anim", 2, "both-way"));
     };
 
     setInteractions = (target, action) => {
@@ -45,18 +45,29 @@ export default class World { // World is everithing regarding 3D world after ini
         this.room[target].addEventListener("click", action);
     }
 
-    Animate = (animation, speed) => { // need to make it work
+    Animate = (animation, speed, mode) => { // need to make it work
         if (!animations[animation]) {
             const clip = this.fullRoom.animations.find(element => element.name === animation);
-            animations[animation] = this.mixer.clipAction(clip);
+            animations[animation] = this.mixer.clipAction(clip);    
+            animations[animation].setDuration(speed);
+            animations[animation].setLoop(THREE.LoopOnce);  
+            animations[animation].clampWhenFinished = true;
         } else {
-            animations[animation].reset()
+            if (mode == "both-way") {
+                animations[animation].paused = false;
+                animations[animation].timeScale = -animations[animation].timeScale;
+                animations[animation].setLoop(THREE.LoopOnce); 
+            } else {
+                animations[animation].reset()
+            }
         }
-        animations[animation].setLoop(THREE.LoopOnce);      
-        animations[animation].setDuration(speed);
-        
-        animations[animation].clampWhenFinished = true;
         animations[animation].play();
+        if (mode == "reset-after") {
+            setTimeout(() => {
+                animations[animation].reset();
+                animations[animation].paused = true;
+            }, speed*1000 + 5000)
+        }
     }
 
     updateClock = () => { // update the clock time

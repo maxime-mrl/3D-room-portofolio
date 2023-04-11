@@ -44,23 +44,21 @@ export default class Loader { // load every assets for the scene then initialize
         video.muted = true;
         video.playsInline = true;
         video.loop = true;
-        video.addEventListener("loadeddata", (data) => {
-            console.log("playing video..")
-            video.play()
-            .then(() => {
-                const videoTexture = new THREE.VideoTexture(video);
-                videoTexture.encoding = THREE.sRGBEncoding;
-    
-                this.oneLoaded(asset.name, videoTexture);
-            })
-            .catch(error => {// catch any errors because one can appen randomly but dosen't matter to remove it -- https://developer.chrome.com/blog/play-request-was-interrupted/)
-                const errorTxt = String(error)
-                console.log("Handle video error")
-                console.log(errorTxt)
-                if (errorTxt.includes("https://goo.gl/LdLk22")) return this.oneLoaded(asset.name, videoTexture);;
-                console.error(error) // when the error isn't recognized log it
-            });
+
+        video.play()
+        .then(() => {
+            const videoTexture = new THREE.VideoTexture(video);
+            videoTexture.encoding = THREE.sRGBEncoding;
+
+            this.oneLoaded(asset.name, videoTexture);
         })
+        .catch(error => {// catch any errors because one can appen randomly but dosen't matter to remove it -- https://developer.chrome.com/blog/play-request-was-interrupted/)
+            const errorTxt = String(error);
+            console.log("Handle video error");
+            console.log(errorTxt);
+            if (errorTxt.includes("https://goo.gl/LdLk22")) return this.oneLoaded(asset.name, videoTexture);
+            console.error(error); // when the error isn't recognized log it
+        });
     }
 
     loadGltf = (asset) => { // load gltf model (the scene)
