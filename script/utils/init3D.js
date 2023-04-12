@@ -1,7 +1,7 @@
 // THREEJS
-import * as THREE from "../three/build/three.module.js"; // import needs .js to work
+import * as THREE from "three"; // import needs .js to work
 window.THREE = THREE; // Allow three.js to be accessible everywhere
-import { OrbitControls } from "../three/examples/jsm/controls/OrbitControls.js";
+import { OrbitControls } from "OrbitControls";
 // HOMEMADE
 import Loader from "./loader.js";
 import Resizer from "./resize.js";

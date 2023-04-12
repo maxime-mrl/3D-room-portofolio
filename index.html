@@ -36,6 +36,15 @@
         <canvas></canvas>
     </div>
     <!-- <script src="script/app.js"></script> -->
+    <script type="importmap"> {
+        "imports": {
+            "three": "./node_modules/three/build/three.module.js",
+            "three.interactive": "./node_modules/three.interactive/build/three.interactive.js",
+            "GLTFLoader": "./node_modules/three/examples/jsm/loaders/GLTFLoader.js",
+            "OrbitControls": "./node_modules/three/examples/jsm/controls/OrbitControls.js"
+        }
+    } </script>
     <script src="./script/index.js" type="module"></script>
+    <script src="./node_modules/three/examples/jsm/controls/OrbitControls.js" type="module"></script>
 </body>
 </html>
