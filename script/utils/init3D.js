@@ -35,18 +35,18 @@ function setRenderer() { // create renderer and set it up
 
 function createControls() { // create orbits controls and set limitations
     const controls = new OrbitControls(camera, canvas);
-    // controls.enablePan = false; // block movement (only left zoom + rot)
+    controls.enablePan = false; // block movement (only left zoom + rot)
 
     // rotation limits
-    // controls.target.set(0,  1.2, 0)
-    // controls.minAzimuthAngle = 0.3;
-    // controls.maxAzimuthAngle = 1; // horizontal
-    // controls.minPolarAngle = 0.5; // vertical
-    // controls.maxPolarAngle = 1.2;
-    // controls.rotateSpeed = 0.2;
-    // // distances limit
-    // controls.minDistance = 5; // zoom
-    // controls.maxDistance = 10;
+    controls.target.set(0,  1.2, 0)
+    controls.minAzimuthAngle = 0.3;
+    controls.maxAzimuthAngle = 1; // horizontal
+    controls.minPolarAngle = 0.5; // vertical
+    controls.maxPolarAngle = 1.2;
+    controls.rotateSpeed = 0.4;
+    // distances limit
+    controls.minDistance = 6; // zoom
+    controls.maxDistance = 10;
 
     camera.position.set(8,6,8);
     controls.update();

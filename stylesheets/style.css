@@ -99,6 +99,39 @@ img {
   height: 100%;
 }
 
+.theme {
+  position: fixed;
+  right: 0.5em;
+  top: 0.5em;
+  z-index: 5;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+}
+.theme #night-switch {
+  position: relative;
+  width: 2.2em;
+  height: 1.2em;
+  border-radius: 2em;
+  background-color: aqua;
+}
+.theme #night-switch::after {
+  content: "";
+  position: absolute;
+  left: 0.2em;
+  top: 0.2em;
+  background-color: rgb(25, 50, 160);
+  border-radius: 2em;
+  width: 0.8em;
+  height: 0.8em;
+  transition: transform 200ms ease-in-out;
+}
+
+.theme.night #night-switch::after {
+  transform: translate(1em);
+}
+
 /* -------------------------------- CAROUSSEL -------------------------------- */
 .caroussel {
   margin: 0 auto;

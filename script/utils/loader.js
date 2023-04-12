@@ -45,6 +45,7 @@ export default class Loader { // load every assets for the scene then initialize
         video.playsInline = true;
         video.loop = true;
 
+
         video.play()
         .then(() => {
             const videoTexture = new THREE.VideoTexture(video);
@@ -56,7 +57,13 @@ export default class Loader { // load every assets for the scene then initialize
             const errorTxt = String(error);
             console.log("Handle video error");
             console.log(errorTxt);
-            if (errorTxt.includes("https://goo.gl/LdLk22")) return this.oneLoaded(asset.name, videoTexture);
+            if (errorTxt.includes("https://goo.gl/LdLk22")) {
+                const videoTexture = new THREE.VideoTexture(video);
+                videoTexture.encoding = THREE.sRGBEncoding;
+    
+                this.oneLoaded(asset.name, videoTexture);
+                return;
+            };
             console.error(error); // when the error isn't recognized log it
         });
     }
