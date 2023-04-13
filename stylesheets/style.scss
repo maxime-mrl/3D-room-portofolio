@@ -44,12 +44,10 @@ img {
 
 .modal-active {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    width: 80%;
-    height: 80svh;
     z-index: 100;
-    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
 }
 
 /* ---------------------------- LOADING ANIMATION --------------------------- */
@@ -88,10 +86,10 @@ img {
     position: fixed;
     width: 100%;
     height: 100vh;
+    height: 100dvh;
     canvas {
         width: 100%;
         height: 100%;
-
     }
 }
 

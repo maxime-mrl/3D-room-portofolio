@@ -17,7 +17,7 @@ window.openModal = targetId => { // open modal like caroussel
     activeModal.className = "modal-active";
     cancelAnimationFrame(world.frameRequest); // stop updating render to save perf
     setTimeout(() => { // don't really know why, but the click that open modal is registered by this eventlistener if no timeout
-        document.addEventListener("click", modalClick);
+        activeModal.addEventListener("click", modalClick);
     }, 100);
 }
 
@@ -32,15 +32,7 @@ const closeModal = () => { // close any modal opened
 function modalClick(e) { // listener function for click -- check if click is not inside modal close it
     // need to check if user has clicked somewhere on modal (meaning child count too) and if not close modal
     if (window.activeModal == "") return;
-    let parent = e.target.parentNode;
-    let i = 0;
-    while (parent != document.body && i < 10) { // check if click target is children of the active modal with max of 10 iteration (to make sur no infinite loop)
-        i++;
-        if (parent == activeModal) {
-            return; // if is a children stop here and don't finish the addEventListener execution
-        }
-        parent = parent.parentNode;
-    }
+    if (activeModal != e.target) return;
     closeModal();
 }
 
