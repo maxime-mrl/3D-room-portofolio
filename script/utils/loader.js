@@ -1,4 +1,4 @@
-import { GLTFLoader } from "GLTFLoader";
+import { GLTFLoader } from "../three/examples/jsm/loaders/GLTFLoader.js";
 import assets from "./assets.js";
 import World from "../world.js";
 

@@ -1,4 +1,4 @@
-import { InteractionManager } from 'three.interactive';
+import { InteractionManager } from './three.interactive/build/three.interactive.js';
 import Environment from './utils/environment.js';
 
 const animations = {};

@@ -1,11 +1,22 @@
 import "./utils/utilities.js"; // add general function like toRadian
 import "./utils/init3D.js"; // create 3D world
 
-const images = document.querySelectorAll(".images > *");
-const autoDefil = document.querySelector(".auto");
+const burger = document.querySelector(".menu-nav > ul")
+let activeModal = "";
+
+const images = document.querySelectorAll(".caroussel-content > *");
+const autoDefil = document.querySelector(".caroussel .auto");
+let progress = document.querySelector(".caroussel .progress")
 let actualSlide = 0;
 let autoSlideInterval;
-let activeModal = "";
+initCaroussel()
+
+/* -------------------------------------------------------------------------- */
+/*                                 BURGER MENU                                */
+/* -------------------------------------------------------------------------- */
+window.toggleBurger = () => {
+    burger.classList.toggle("active")
+}
 
 /* -------------------------------------------------------------------------- */
 /*                        DOM INTERACTION FROM 3D SCENE                       */
@@ -39,22 +50,53 @@ function modalClick(e) { // listener function for click -- check if click is not
 /* -------------------------------------------------------------------------- */
 /*                                  CAROUSSEL                                 */
 /* -------------------------------------------------------------------------- */
-window.changeSlide = to => { // changes slide
-    images[actualSlide].className = "hidden";
-    actualSlide += to;
-    if (actualSlide < 0) { actualSlide = images.length-1 }
-    else if (actualSlide >= images.length) { actualSlide = 0 }
-    // now we know which image should be displayed
-    images[actualSlide].className = "active";
+window.changeSlide = (to) => {
+    images[actualSlide].className = "hidden-slide"; // hide last image
+    images[actualSlide].querySelector("video").pause();
+    actualSlide += to; // define slide to display for access latter images array
+    if (actualSlide < 0) actualSlide = images.length-1;
+    else if (actualSlide >= images.length) actualSlide = 0;
+    images[actualSlide].className = "active"; // display wanted image
+    images[actualSlide].querySelector("video").play();
+    // update dot progress
+    progress.forEach(dot => {
+        dot.className = "dot"
+    })
+    progress[actualSlide].className = "dot active"
 }
 
-window.play = () => { // start auto changing slide
+window.goToSlide = (to) => {
+    if (to >= images.length || to < 0) return;
+    pause()
+    images[actualSlide].className = "hidden-slide"; // hide last image
+    images[actualSlide].querySelector("video").pause();
+    actualSlide = to;
+    changeSlide(0)
+}
+
+function play() {
     autoSlideInterval = setInterval(() => {
-        changeSlide(1);
-    }, 2000);
-    autoDefil.className = "auto play";
+        if (document.querySelector(".caroussel .text:hover")) return;
+        changeSlide(1)
+    }, 6000);
+    autoDefil.setAttribute("data-state", "play") // change datastae of play/pause container to update CSS
 }
-window.pause = () => { // stop auto changing slide
+window.play = play;
+
+window.pause = () => {
     clearInterval(autoSlideInterval);
-    autoDefil.className = "auto pause";
+    autoDefil.setAttribute("data-state", "pause") // change datastae of play/pause container to update CSS
 }
+
+function initCaroussel() {
+    if (autoDefil.getAttribute("data-state") == "play") play();
+    images.forEach((e, i) => {
+        const dot = document.createElement("div")
+        dot.className = "dot"
+        progress.appendChild(dot)
+        dot.addEventListener("click", () => goToSlide(i))
+    })
+    progress = progress.querySelectorAll("*")
+    progress[0].className = "dot active"
+}
+

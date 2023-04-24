@@ -22,34 +22,137 @@
         <i class="fa-regular fa-moon"></i>
     </div>
     <div class="modal-hidden" id="projects">
-        <div class="caroussel">
-            <div class="images">
-                <div class="active"><img src="assets/images/image-1.jpg" alt="Paysage depuis le salève"></div>
-                <div class="hidden"><img src="assets/images/image-2.jpg" alt="rocher au salève"></div>
-                <div class="hidden"><img src="assets/images/image-3.jpg" alt="coucher de soleil depuis le salève"></div>
-                <div class="hidden"><img src="assets/images/image-4.jpg" alt="chemin des étournelles"></div>
+        <div class="projects-content">
+            <h2 class="title">My projects</h2>
+            <div class="caroussel">
+                <div class="caroussel-content">
+                    <div class="active">
+                        <div class="bg">
+                            <video src="assets/video/under-burger.mp4" autoplay muted loop playsinline></video>
+                        </div>
+                        <div class="text">
+                            <h3 class="subtitle">Under Burger</h3>
+                            <a href="https://projects.maxime-morel.xyz/under-burger" target="_blank" class="btn">Go check it out</a>
+                        </div>
+                    </div>
+                    <div class="hidden-slide">
+                        <div class="bg">
+                            <video src="assets/video/crea-jardins.mp4" autoplay muted loop playsinline></video>
+                        </div>
+                        <div class="text black-txt">
+                            <h3 class="subtitle black">Crea Jardins</h3>
+                            <a href="https://projects.maxime-morel.xyz/crea-jardins" target="_blank" class="btn black">Go check it out</a>
+                        </div>
+                    </div>
+                    <div class="hidden-slide">
+                        <div class="bg">
+                            <video src="assets/video/flappy-bird.mp4" autoplay muted loop playsinline></video>
+                        </div>
+                        <div class="text">
+                            <h3 class="subtitle">flappy-bird recreation</h3>
+                            <a href="https://projects.maxime-morel.xyz/flappy-bird" target="_blank" class="btn">Go check it out</a>
+                        </div>
+                    </div>
+                    <div class="hidden-slide">
+                        <div class="bg">
+                            <video src="assets/video/minecraft-2d.mp4" autoplay muted loop playsinline></video>
+                        </div>
+                        <div class="text">
+                            <h3 class="subtitle">Minecraft 2D</h3>
+                            <a href="https://projects.maxime-morel.xyz/minecraft-2d" target="_blank" class="btn">Go check it out</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <button id="prev" class="nav" onclick="changeSlide(-1)">
+                        <i class="fa-solid fa-chevron-left"></i>
+                        <span class="hidden">previous</span>
+                    </button>
+                    <span class="auto" data-state="play">
+                        <button id="play" onclick="play()">
+                            <i class="fa-solid fa-play"></i>
+                            <span class="hidden">activate auto play</span>
+                        </button>
+                        <button id="pause" onclick="pause()">
+                            <i class="fa-solid fa-pause"></i>
+                            <span class="hidden">stop auto play</span>
+                        </button>
+                    </span>
+                    <button id="next" class="nav" onclick="changeSlide(1)">
+                        <i class="fa-solid fa-chevron-right"></i>
+                        <span class="hidden">next</span>
+                    </button>
+                </div>
+                <div class="progress">
+                </div>
             </div>
-            <button id="prev" class="nav" onclick="changeSlide(-1)"><i class="fa-solid fa-angle-left"></i></button>
-            <button id="next" class="nav" onclick="changeSlide(1)"><i class="fa-solid fa-angle-right"></i></button>
-            <span class="auto pause">
-                <button id="play" onclick="play()"><i class="fa-solid fa-play"></i></button>
-                <button id="pause" onclick="pause()"><i class="fa-solid fa-pause"></i></button>
-            </span>
         </div>
+    </div>
+    <div class="modal-hidden" id="contact">
+        <div class="form-container">
+            <h2>Get in touch!</h2>
+            <form id="contact-form">
+                <div class="last-name-container">
+                    <label for="last-name">Nom</label>
+                    <input type="text" name="last-name" id="last" placeholder="Votre nom" data-err="Nom requis" required>
+                </div>
+                <div id="first-name-container">
+                    <label for="first-name">Prénom</label>
+                    <input type="text" name="first-name" id="first" placeholder="Votre prénom" data-err="Prénom requis" required>
+                </div>
+                <div id="mail-container">
+                    <label for="E-mail">Mail</label>
+                    <input type="email" name="e-mail" id="mail" placeholder="Votre mail" data-err="Mail invalide/manquant" required>
+                </div>
+                <div id="phone-container">
+                    <label for="Phone">Tel</label>
+                    <input type="tel" name="phone" id="mail" placeholder="Votre tel" data-err="Numéro invalide/manquant" required>
+                </div>
+                <div id="adress-container">
+                    <label for="adress">Adresse</label>
+                    <input type="text" name="adress" id="adress" placeholder="42 rue du boulanger" data-err="Adresse requise" required>
+                </div>
+                <div id="city-container">
+                    <label for="city">Ville</label>
+                    <input type="text" name="city" id="city" placeholder="ville" data-err="ville requise" required>
+                </div>
+                <div id="postal-container">
+                    <label for="code">Code postal</label>
+                    <input type="text" name="code" id="code" placeholder="Code postal" data-err="Code postal invalide">
+                </div>
+                <div id="country-container">
+                    <label for="country">Pays</label>
+                    <input type="text" name="country" id="coutry" placeholder="Pays" data-err="Pays requis" required>
+                </div>
+                <div id="message-container">
+                    <textarea name="message" id="message" cols="30" rows="10" placeholder="Votre Message" data-err="message requis entre 10 et 500 charactères" required></textarea>
+                </div>
+                <button onclick="submitForm()">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div class="menu-nav">
+        <button onclick="toggleBurger()">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <ul>
+            <li>
+                <button onclick="openModal('projects'); toggleBurger()">My projects</button>
+            </li>
+            <li>
+                <button  onclick="openModal('contact'); toggleBurger()">Contact</button>
+            </li>
+            <li>
+                <button onclick="toggleBurger()">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </li>
+        </ul>
     </div>
     <div class="render-container">
         <canvas></canvas>
     </div>
     <!-- <script src="script/app.js"></script> -->
-    <script type="importmap"> {
-        "imports": {
-            "three": "./node_modules/three/build/three.module.js",
-            "three.interactive": "./node_modules/three.interactive/build/three.interactive.js",
-            "GLTFLoader": "./node_modules/three/examples/jsm/loaders/GLTFLoader.js",
-            "OrbitControls": "./node_modules/three/examples/jsm/controls/OrbitControls.js"
-        }
-    } </script>
     <script src="./script/index.js" type="module"></script>
-    <script src="./node_modules/three/examples/jsm/controls/OrbitControls.js" type="module"></script>
 </body>
 </html>

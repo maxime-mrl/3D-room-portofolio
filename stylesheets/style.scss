@@ -1,4 +1,21 @@
 @use "sass:color"; // for color function (fade-out)
+@font-face { /* title */
+    font-family: "Digital geometric";
+    src: url("../assets/fonts/digital-geometric.otf");
+}
+@font-face { /* text */
+    font-family: "Varela Round";
+    src: url("../assets/fonts/VarelaRound-Regular.ttf");
+}
+
+:root {
+    --green: #b0d7b5;
+    --beige: #dfdbd4;
+    --black: #1e1e1e;
+}
+$radius: 0.5em;
+$transition-duration: 500ms;
+
 /* -------------------------------------------------------------------------- */
 /*                                  RESET CSS                                 */
 /* -------------------------------------------------------------------------- */
@@ -9,6 +26,7 @@
     border: 0;
     font-size: 100%;
     font: inherit;
+    color: inherit;
     vertical-align: baseline;
     line-height: 1;
     appearance: none;
@@ -32,6 +50,9 @@ button {
 /* -------------------------------------------------------------------------- */
 /*                                   GENERAL                                  */
 /* -------------------------------------------------------------------------- */
+body {
+    font-family: "Varela Round";
+}
 img {
     width: 100%;
     height: 100%;
@@ -48,21 +69,54 @@ img {
     width: 100%;
     height: 100vh;
     height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
 }
 
+.hidden { /* for all element that need to be present in dom but invisible for accessibility */
+    border: 0;
+    clip: rect(1px,1px,1px,1px);
+    -webkit-clip-path: inset(50%);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    margin: -1px;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    white-space: nowrap;
+}
+
+.btn {
+    font-size: 1.5rem;
+    background-color: #efefef20;
+    padding: 0.7em 2em;
+    border-radius: $radius;
+    border: 1px solid #efefef60;
+    transition: $transition-duration;
+    &:hover {
+        color: #1e1e1e;
+        border: 1px solid #1e1e1e;
+        background-color: #efefef80;
+        transform: scale(1.05);
+        letter-spacing: 0.002em;
+    }
+}
 /* ---------------------------- LOADING ANIMATION --------------------------- */
 .loader {
     position: fixed;
     width: 100%;
     height: 100vh;
-    background-color: #373737;
+    background-color: var(--beige);
     z-index: 999;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 1em;
     .dot {
-        background-color: #1e1e1e;
+        background-color: var(--black);
         border-radius: 100vh;
         width: 1em;
         height: 1em;
@@ -76,7 +130,7 @@ img {
         }
     }
     .loaded {
-        background-color: green;
+        background-color: var(--green);
     }
 }
 
@@ -107,13 +161,13 @@ img {
         width: 2.2em;
         height: 1.2em;
         border-radius: 2em;
-        background-color: aqua;
+        background-color: var(--green);
         &::after {
             content: "";
             position: absolute;
             left: 0.2em;
             top: 0.2em;
-            background-color: rgb(25, 50, 160);
+            background-color: var(--black);
             border-radius: 2em;
             width: 0.8em;
             height: 0.8em;
@@ -125,77 +179,198 @@ img {
     transform: translate(1em);
 }
 
-/* -------------------------------- CAROUSSEL -------------------------------- */
-.caroussel {
-    margin: 0 auto;
-    position: relative;
-    aspect-ratio: 16 / 10;
-    max-width: 100%;
-    max-height: 100%;
-    overflow: hidden;
-    background-color: #1e1e1e;
-    border: 1px solid #1e1e1e;
-    box-shadow: 5px 5px 5px fade-out($color: #1e1e1e, $amount: 0.4);
+/* ------------------------------- NAVIGATION ------------------------------- */
+.menu-nav {
+    font-size: 1.5rem;
+    color: var(--black);
+    position: fixed;
+    left: 1em;
+    bottom: 1em;
+    z-index: 5;
+    ul {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        background-color: var(--green);
+        padding: 2em;
+        border-top-right-radius: 0.5em;
+        flex-direction: column;
+        gap: 1em;
+        align-items: center;
+        clip-path: circle(0 at bottom left);
+        transition: clip-path 500ms ease-in-out;
+    }
+    ul.active {
+        clip-path: circle(200% at bottom left);
+    }
 }
 
-.images {
-    & > * {
+/* -------------------------------- CAROUSSEL -------------------------------- */
+.projects-content {
+    width: 90%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.caroussel {
+    position: relative;
+    display: flex;
+    aspect-ratio: 16 / 10;
+    width: 100%;
+    max-height: 90vh;
+    border-radius: $radius;
+    margin: 4rem 0 7rem;
+}
+
+.caroussel-content {
+    color: white;
+    & > div > * {
         position: absolute;
-        top: 0;
         width: 100%;
         height: 100%;
     }
-    .hidden {
-        animation: hide-img 500ms forwards;
+    .bg {
+        overflow: hidden;
+        border-radius: $radius;
+        > * {
+            transition: transform $transition-duration ease-in-out;
+            width: 100%;
+        }
     }
-    .active {
-        animation: display-img 500ms forwards;
+    .text {
+        height: calc(100% + 10rem);
+        margin-top: -4rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        & > * {
+            max-height: 3em;
+        }
     }
+    .subtitle { font-size: 8vw; }
+    .btn { font-size: 6vw; }
+    & > .hidden-slide { animation: hide-slide $transition-duration forwards }
+    & > .active { animation: display-slide $transition-duration forwards }
 }
 
 /* NAVIGATION */
-.nav, .auto > button {
-    position: absolute;
-    width: 2em;
-    height: 2em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.controls {
     color: white;
-    font-size: 1.5rem;
-    background-color: #1e1e1e;
-    border-radius: 50%;
-    transition: transform 200ms;
-}
-
-/* play/pause */
-.auto > button {
-    bottom: 1em;
+    position: absolute;
+    bottom: 1.5em;
     left: 50%;
     transform: translateX(-50%);
-    display: none;
-    &:hover {
-        cursor: pointer;
-        transform: translateX(-50%) scale(1.05);
+    z-index: 5;
+
+    display: flex;
+    gap: 1em;
+
+    font-size: 1.5rem;
+    button {
+        text-shadow: 3px 3px 4px #1e1e1e99;
+        transition: $transition-duration;
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+
+}
+.auto > * { display: none; }
+.auto[data-state=play] > #pause { display: flex; }
+.auto[data-state=pause] > #play { display: flex; }
+
+.caroussel:has(.active .black) { // has not well supported but not so important styling soo
+    .progress {
+        .dot {
+            border: 0.15em solid #1e1e1e;
+        }
+        .active {
+            background-color: #1e1e1e;
+        }
+    }
+    .controls {
+        color: #1e1e1e;
+        button {
+            text-shadow: 1px 1px 4px #efefefbb;
+        }
     }
 }
 
-.auto.play > #pause { display: flex; }
-.auto.pause > #play { display: flex; }
-
-/* prev/next */
-.nav {
-    top: 50%;
-    transform: translatey(-50%);
-    &:hover {
+.progress {
+    position: absolute;
+    bottom: 0.2em;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 3;
+    display: flex;
+    gap: 1em;
+    .dot {
+        font-size: 0.8rem;
         cursor: pointer;
-        transform: translateY(-50%) scale(1.05);
+        border-radius: 50%;
+        width: 1em;
+        height: 1em;
+        border: 0.15em solid #efefef;
+    }
+    .active {
+        background-color: #efefef;
+    }
+}
+@media screen and (min-width: 768px) {
+    .caroussel-content .text {
+        .subtitle {
+            font-size: 2.8rem;
+        }
+        .btn {
+            font-size: 1.5rem;
+        }
     }
 }
 
-#prev { left: 0.5em }
-#next { right: 0.5em; }
-
+@media screen and (min-aspect-ratio: 4/5) {
+    #card-projects { grid-template-rows: 1fr 3.5fr; }
+    .caroussel {
+        margin: 0;
+        &:hover {
+            .caroussel-content {
+                video, img {
+                    transform: scale(1.2);
+                    filter: blur(7px);
+                }
+                .text {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+    .caroussel-content .text {
+        height: 100%;
+        margin-top: 0;
+        justify-content: center;
+        gap: 10%;
+        padding-bottom: 2em;
+        background-color: #1e1e1e80;
+        border-radius: $radius;
+        filter: drop-shadow(5px 5px 5px #1e1e1e);
+        &.black-txt {
+            background-color: #efefef80;
+            filter: drop-shadow(5px 5px 5px #efefef90);
+        }
+        transition: opacity $transition-duration ease-in-out;
+        opacity: 0;
+    }
+    .subtitle.black {
+        color: #1e1e1e;
+    }
+    .btn.black {
+        background-color: #1e1e1e70;
+        border-color: #1e1e1eaa;
+    }
+}
 
 /* -------------------------------------------------------------------------- */
 /*                                  ANIMATION                                 */
@@ -212,23 +387,25 @@ img {
     }
 }
 
-/* IMAGES ANNIMATION */
-@keyframes hide-img {
+/* CAROUSSEL ANNIMATION */
+@keyframes hide-slide {
     0% {
         opacity: 1;
         display: block;
     }
     99% {
-        opacity: 0;
+        opacity: 1;
         display: block;
     }
     100% {
         opacity: 0;
+        z-index: -1;
+        pointer-events: none;
         display: none;
     }
 }
 
-@keyframes display-img {
+@keyframes display-slide {
     0% {
         opacity: 0;
         display: none;

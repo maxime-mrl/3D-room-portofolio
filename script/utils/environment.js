@@ -1,4 +1,7 @@
 const themeBtn = document.querySelector("#night-switch")
+const colors = {
+    
+}
 
 export default class Environment { // create every environment elements (ambiantlight sun ground fog, and then diverse type of light as needed)
     constructor() {
@@ -33,14 +36,16 @@ export default class Environment { // create every environment elements (ambiant
         themeBtn.parentNode.classList.toggle("night")
         if (document.querySelector(".night")) {
             this.hlight.intensity = 0.2;
-            this.sun.intensity = 0.5;
+            this.sun.intensity = 0.1;
             this.hlight.color.setHex(0x6D72C3);
             this.sun.color.setHex(0x94C5CC);
+            scene.fog = new THREE.Fog(0xA9ABC4, 20, 100);
         } else {
             this.hlight.intensity = 1;
             this.sun.intensity = 2;
             this.hlight.color.setHex(0xFCE8B0);
             this.sun.color.setHex(0xFDEEC4);
+            scene.fog = new THREE.Fog(0xffffff, 20, 100);
         }
     }
 
