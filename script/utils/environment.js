@@ -1,12 +1,35 @@
 const themeBtn = document.querySelector("#night-switch")
 const colors = {
-    
+    day: {
+        environment: {
+            light: [0xFCE8B0, 1],
+            sun: [0xFDEEC4, 2],
+            fog: 0xe8e7e1
+        },
+        css: {
+            green: "#b0d7b5",
+            beige: "#dfdbd4",
+            black: "#1e1e1e"
+        }
+    },
+    night: {
+        environment: {
+            light: [0x6D72C3, 0.2],
+            sun: [0x94C5CC, 0.1],
+            fog: 0x5b6378
+        },
+        css: {
+            green: "#244c40",
+            beige: "#494761",
+            black: "#1e1e1e"
+        }
+    },
 }
 
 export default class Environment { // create every environment elements (ambiantlight sun ground fog, and then diverse type of light as needed)
     constructor() {
-        this.hlight = new THREE.AmbientLight(0xFCE8B0, 1);
-        this.sun = new THREE.DirectionalLight(0xFDEEC4, 2);
+        this.hlight = new THREE.AmbientLight(colors.day.environment.light[0], colors.day.environment.light[1]);
+        this.sun = new THREE.DirectionalLight(colors.day.environment.sun[0], colors.day.environment.sun[1]);
 
         this.sun.castShadow = true;
         this.sun.shadow.camera.far = 20;
@@ -24,7 +47,7 @@ export default class Environment { // create every environment elements (ambiant
         plane.receiveShadow = true;
         plane.castShadow = true;
 
-        scene.fog = new THREE.Fog(0xffffff, 20, 100);
+        scene.fog = new THREE.Fog(colors.day.environment.fog, 20, 100);
         scene.add(plane);
         scene.add(this.sun);
         scene.add(this.hlight);
@@ -35,17 +58,25 @@ export default class Environment { // create every environment elements (ambiant
     swicthTheme = () => {
         themeBtn.parentNode.classList.toggle("night")
         if (document.querySelector(".night")) {
-            this.hlight.intensity = 0.2;
-            this.sun.intensity = 0.1;
-            this.hlight.color.setHex(0x6D72C3);
-            this.sun.color.setHex(0x94C5CC);
-            scene.fog = new THREE.Fog(0xA9ABC4, 20, 100);
+            this.hlight.intensity = colors.night.environment.light[1];
+            this.sun.intensity = colors.night.environment.sun[1];
+            this.hlight.color.setHex(colors.night.environment.light[0]);
+            this.sun.color.setHex(colors.night.environment.sun[0]);
+            scene.fog = new THREE.Fog(colors.night.environment.fog, 20, 100);
+
+            document.documentElement.style.setProperty('--green', colors.night.css.green);
+            document.documentElement.style.setProperty('--beige', colors.night.css.beige);
+            document.documentElement.style.setProperty('--black', colors.night.css.black);
         } else {
-            this.hlight.intensity = 1;
-            this.sun.intensity = 2;
-            this.hlight.color.setHex(0xFCE8B0);
-            this.sun.color.setHex(0xFDEEC4);
-            scene.fog = new THREE.Fog(0xffffff, 20, 100);
+            this.hlight.intensity = colors.day.environment.light[1];
+            this.sun.intensity = colors.day.environment.sun[1];
+            this.hlight.color.setHex(colors.day.environment.light[0]);
+            this.sun.color.setHex(colors.day.environment.sun[0]);
+            scene.fog = new THREE.Fog(colors.day.environment.fog, 20, 100);
+
+            document.documentElement.style.setProperty('--green', colors.day.css.green);
+            document.documentElement.style.setProperty('--beige', colors.day.css.beige);
+            document.documentElement.style.setProperty('--black', colors.day.css.black);
         }
     }
 
