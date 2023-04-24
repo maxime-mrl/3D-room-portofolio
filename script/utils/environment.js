@@ -9,7 +9,8 @@ const colors = {
         css: {
             green: "#b0d7b5",
             beige: "#dfdbd4",
-            black: "#1e1e1e"
+            black: "#1e1e1e",
+            text: "#1e1e1e",
         }
     },
     night: {
@@ -21,7 +22,8 @@ const colors = {
         css: {
             green: "#244c40",
             beige: "#494761",
-            black: "#1e1e1e"
+            black: "#1e1e1e",
+            text: "#eff1ed",
         }
     },
 }
@@ -67,6 +69,7 @@ export default class Environment { // create every environment elements (ambiant
             document.documentElement.style.setProperty('--green', colors.night.css.green);
             document.documentElement.style.setProperty('--beige', colors.night.css.beige);
             document.documentElement.style.setProperty('--black', colors.night.css.black);
+            document.documentElement.style.setProperty('--text', colors.night.css.text);
         } else {
             this.hlight.intensity = colors.day.environment.light[1];
             this.sun.intensity = colors.day.environment.sun[1];
@@ -77,6 +80,7 @@ export default class Environment { // create every environment elements (ambiant
             document.documentElement.style.setProperty('--green', colors.day.css.green);
             document.documentElement.style.setProperty('--beige', colors.day.css.beige);
             document.documentElement.style.setProperty('--black', colors.day.css.black);
+            document.documentElement.style.setProperty('--text', colors.day.css.text);
         }
     }
 

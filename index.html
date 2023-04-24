@@ -23,7 +23,7 @@
     </div>
     <div class="modal-hidden" id="projects">
         <div class="projects-content">
-            <h2 class="title">My projects</h2>
+            <h2 class="h1">My projects</h2>
             <div class="caroussel">
                 <div class="caroussel-content">
                     <div class="active">
@@ -31,7 +31,7 @@
                             <video src="assets/video/under-burger.mp4" autoplay muted loop playsinline></video>
                         </div>
                         <div class="text">
-                            <h3 class="subtitle">Under Burger</h3>
+                            <h3 class="h2">Under Burger</h3>
                             <a href="https://projects.maxime-morel.xyz/under-burger" target="_blank" class="btn">Go check it out</a>
                         </div>
                     </div>
@@ -90,42 +90,23 @@
     </div>
     <div class="modal-hidden" id="contact">
         <div class="form-container">
-            <h2>Get in touch!</h2>
+            <h2 class="h1">Get in touch!</h2>
             <form id="contact-form">
-                <div class="last-name-container">
-                    <label for="last-name">Nom</label>
-                    <input type="text" name="last-name" id="last" placeholder="Votre nom" data-err="Nom requis" required>
-                </div>
                 <div id="first-name-container">
-                    <label for="first-name">Prénom</label>
-                    <input type="text" name="first-name" id="first" placeholder="Votre prénom" data-err="Prénom requis" required>
+                    <label for="first-name">Name</label>
+                    <input type="text" name="first-name" id="first" placeholder="Your name" data-err="Name required" required>
                 </div>
                 <div id="mail-container">
                     <label for="E-mail">Mail</label>
-                    <input type="email" name="e-mail" id="mail" placeholder="Votre mail" data-err="Mail invalide/manquant" required>
+                    <input type="email" name="e-mail" id="mail" placeholder="Your mail" data-err="invalid/missing mail" required>
                 </div>
-                <div id="phone-container">
-                    <label for="Phone">Tel</label>
-                    <input type="tel" name="phone" id="mail" placeholder="Votre tel" data-err="Numéro invalide/manquant" required>
-                </div>
-                <div id="adress-container">
-                    <label for="adress">Adresse</label>
-                    <input type="text" name="adress" id="adress" placeholder="42 rue du boulanger" data-err="Adresse requise" required>
-                </div>
-                <div id="city-container">
-                    <label for="city">Ville</label>
-                    <input type="text" name="city" id="city" placeholder="ville" data-err="ville requise" required>
-                </div>
-                <div id="postal-container">
-                    <label for="code">Code postal</label>
-                    <input type="text" name="code" id="code" placeholder="Code postal" data-err="Code postal invalide">
-                </div>
-                <div id="country-container">
-                    <label for="country">Pays</label>
-                    <input type="text" name="country" id="coutry" placeholder="Pays" data-err="Pays requis" required>
+                <div id="subject-container">
+                    <label for="subject">Subject</label>
+                    <input type="text" name="subject" id="subject" placeholder="Subject" data-err="Subject required" required>
                 </div>
                 <div id="message-container">
-                    <textarea name="message" id="message" cols="30" rows="10" placeholder="Votre Message" data-err="message requis entre 10 et 500 charactères" required></textarea>
+                    <label for="message">Message</label>
+                    <textarea name="message" id="message" cols="30" rows="10" placeholder="Your message" data-err="message required from 10 to 500 characters" required></textarea>
                 </div>
                 <button onclick="submitForm()">Submit</button>
             </form>

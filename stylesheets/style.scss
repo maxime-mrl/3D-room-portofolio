@@ -12,6 +12,7 @@
     --green: #b0d7b5;
     --beige: #dfdbd4;
     --black: #1e1e1e;
+    --text: #1e1e1e;
 }
 $radius: 0.5em;
 $transition-duration: 500ms;
@@ -52,11 +53,16 @@ button {
 /* -------------------------------------------------------------------------- */
 body {
     font-family: "Varela Round";
+    color: var(--text);
 }
-img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+
+
+.h1 {
+    font-family: "Digital geometric";
+    font-size: 3rem;
+}
+.h2 {
+    font-size: 2rem;
 }
 
 .modal-hidden {
@@ -214,6 +220,7 @@ img {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 2rem;
 }
 .caroussel {
     position: relative;
