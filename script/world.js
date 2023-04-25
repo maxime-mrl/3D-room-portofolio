@@ -74,7 +74,7 @@ export default class World { // World is everithing regarding 3D world after ini
             interactions.forEach(interaction => {
                 interaction.object.material = interaction.originalMaterial
             })
-        }, 1000);
+        }, 1800);
     }
 
     Animate = (animation, speed, mode) => {

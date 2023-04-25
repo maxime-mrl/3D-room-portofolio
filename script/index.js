@@ -1,7 +1,8 @@
 import "./utils/utilities.js"; // add general function like toRadian
 import "./utils/init3D.js"; // create 3D world
 
-const burger = document.querySelector(".menu-nav > ul")
+const burger = document.querySelector(".menu-nav > ul");
+const popup = document.querySelector(".popup")
 let activeModal = "";
 
 const formElems = document.querySelectorAll("#contact-form input, #contact-form textarea");
@@ -54,6 +55,14 @@ function modalClick(e) { // listener function for click -- check if click is not
     closeModal();
 }
 
+function displayPopup(customClass, message) {
+    popup.innerHTML = message;
+    popup.className = "popup active " + customClass
+    setTimeout(() => {
+        popup.className = "popup"
+    }, 1500);
+}
+
 /* -------------------------------------------------------------------------- */
 /*                                   CONTACT                                  */
 /* -------------------------------------------------------------------------- */
@@ -87,11 +96,10 @@ window.submitForm = () => { // check if all form is good before "submiting"
         }
     })
     if (error) { // if one or more error alert it
-        alert("au moins une entrée invalide");
+        displayPopup("fail", ":/ At least one wrong entry")
         return;
     }
-    alert("Formulaire validé !"); // else success then reload
-    window.location.reload()
+    displayPopup("sucess", "Success !")
 }
 
 function check(regEx, input, errorTxt) { // check if one input is valid

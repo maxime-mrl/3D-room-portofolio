@@ -112,27 +112,13 @@
             </form>
         </div>
     </div>
-    <div class="menu-nav">
-        <button onclick="toggleBurger()">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-        <ul>
-            <li>
-                <button onclick="openModal('projects'); toggleBurger()">My projects</button>
-            </li>
-            <li>
-                <button  onclick="openModal('contact'); toggleBurger()">Contact</button>
-            </li>
-            <li>
-                <button onclick="toggleBurger()">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </li>
-        </ul>
+    <div class="hint">
+        <button onclick="world.hint()">?</button>
     </div>
     <div class="render-container">
         <canvas></canvas>
     </div>
+    <div class="popup"></div>
     <!-- <script src="script/app.js"></script> -->
     <script src="./script/index.js" type="module"></script>
 </body>

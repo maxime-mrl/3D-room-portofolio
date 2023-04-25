@@ -60,7 +60,6 @@ body {
     color: rgb(var(--text));
 }
 
-
 .h1 {
     font-family: "Digital geometric";
     font-size: 3rem;
@@ -115,6 +114,23 @@ body {
         letter-spacing: 0.002em;
     }
 }
+
+.popup {
+    position: fixed;
+    z-index: 100;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1em;
+    border-radius: $radius;
+    font-size: 1.5rem;
+    background-color: rgb(var(--beige));
+    display: none;
+    &.active {
+        display: block;
+    }
+}
+
 /* ---------------------------- LOADING ANIMATION --------------------------- */
 .loader {
     position: fixed;
@@ -128,7 +144,7 @@ body {
     gap: 1em;
     .dot {
         background-color: rgb(var(--black));
-        border-radius: 100vh;
+        border-radius: 100vh; /* make round */
         width: 1em;
         height: 1em;
         animation: loader 1s linear infinite;
@@ -147,16 +163,13 @@ body {
 
 
 /* --------------------------------- THREEJS -------------------------------- */
-.render-container {
+.render-container canvas {
     position: fixed;
     width: 100%;
     height: 100vh;
     height: 100dvh;
-    canvas {
-        width: 100%;
-        height: 100%;
-    }
 }
+
 
 .theme {
     position: fixed;
@@ -171,7 +184,7 @@ body {
         position: relative;
         width: 2.2em;
         height: 1.2em;
-        border-radius: 2em;
+        border-radius: 2em; /* to be round */
         background-color: rgb(var(--green));
         &::after {
             content: "";
@@ -185,35 +198,28 @@ body {
             transition: transform 200ms ease-in-out;
         }
     }
-}
-.theme.night #night-switch::after {
-    transform: translate(1em);
+    &.night #night-switch::after {
+        transform: translate(1em);
+    }
 }
 
 /* ------------------------------- NAVIGATION ------------------------------- */
-.menu-nav {
-    font-size: 1.5rem;
-    color: rgb(var(--black));
+.hint {
     position: fixed;
     left: 1em;
     bottom: 1em;
     z-index: 5;
-    ul {
+    font-size: 1.5rem;
+    button {
+        color: rgb(var(--text));
+        background-color: rgb(var(--beige));
+        width: 1.4em;
+        height: 1.4em;
         display: flex;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        background-color: rgb(var(--green));
-        padding: 2em;
-        border-top-right-radius: 0.5em;
-        flex-direction: column;
-        gap: 1em;
+        justify-content: center;
         align-items: center;
-        clip-path: circle(0 at bottom left);
-        transition: clip-path 500ms ease-in-out;
-    }
-    ul.active {
-        clip-path: circle(200% at bottom left);
+        border-radius: 50%;
+        box-shadow: 2px 2px 3px rgba(var(--black), 0.5);
     }
 }
 
@@ -237,8 +243,8 @@ body {
     width: 35rem;
     padding: 1em;
     background-color: rgb(var(--beige));
-    border-radius: 1em;
-    // border: 1px solid #495356;
+    border-radius: $radius;
+    border: 1px solid rgba(var(--text), 0.5);
     * {
         display: block;
         width: 100%;
@@ -270,34 +276,41 @@ body {
         padding: 0.5em 1em;
         background-color: rgb(var(--beige));
         border: 1px solid rgb(var(--text));
-        border-radius: 0.2em;
+        border-radius: $radius;
     }
+    #first-name-container { grid-area: first-name }
+    #mail-container { grid-area: mail }
+    #subject-container { grid-area: subject }
+    #message-container { grid-area: message }
+    #contact-form > button { grid-area: submit }
 }
 
-#first-name-container { grid-area: first-name }
-#mail-container { grid-area: mail }
-#subject-container { grid-area: subject }
-#message-container { grid-area: message }
-#contact-form > button { grid-area: submit }
-
-
+.popup {
+    &.fail {
+        border: solid 2px red;
+    }
+    &.succes {
+        border: solid 2px green;
+    }
+}
 
 /* -------------------------------- CAROUSSEL -------------------------------- */
 .projects-content {
     width: 90%;
     max-width: 1000px;
+    max-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 2rem;
 }
+
 .caroussel {
     position: relative;
     display: flex;
     aspect-ratio: 16 / 10;
     width: 100%;
-    max-height: 90vh;
     border-radius: $radius;
     margin: 4rem 0 7rem;
 }
@@ -360,7 +373,7 @@ body {
 .auto[data-state=play] > #pause { display: flex; }
 .auto[data-state=pause] > #play { display: flex; }
 
-.caroussel:has(.active .black) { // has not well supported but not so important styling soo
+.caroussel:has(.active .black) { // has not well supported but not so important styling so not that big deal
     .progress {
         .dot {
             border: 0.15em solid #1e1e1e;
@@ -388,7 +401,7 @@ body {
     .dot {
         font-size: 0.8rem;
         cursor: pointer;
-        border-radius: 50%;
+        border-radius: 100vh;
         width: 1em;
         height: 1em;
         border: 0.15em solid #efefef;

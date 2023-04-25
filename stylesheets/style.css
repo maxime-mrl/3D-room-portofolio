@@ -115,6 +115,22 @@ body {
   letter-spacing: 0.002em;
 }
 
+.popup {
+  position: fixed;
+  z-index: 100;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 1em;
+  border-radius: 0.5em;
+  font-size: 1.5rem;
+  background-color: rgb(var(--beige));
+  display: none;
+}
+.popup.active {
+  display: block;
+}
+
 /* ---------------------------- LOADING ANIMATION --------------------------- */
 .loader {
   position: fixed;
@@ -129,7 +145,7 @@ body {
 }
 .loader .dot {
   background-color: rgb(var(--black));
-  border-radius: 100vh;
+  border-radius: 100vh; /* make round */
   width: 1em;
   height: 1em;
   animation: loader 1s linear infinite;
@@ -150,15 +166,11 @@ body {
 }
 
 /* --------------------------------- THREEJS -------------------------------- */
-.render-container {
+.render-container canvas {
   position: fixed;
   width: 100%;
   height: 100vh;
   height: 100dvh;
-}
-.render-container canvas {
-  width: 100%;
-  height: 100%;
 }
 
 .theme {
@@ -175,7 +187,7 @@ body {
   position: relative;
   width: 2.2em;
   height: 1.2em;
-  border-radius: 2em;
+  border-radius: 2em; /* to be round */
   background-color: rgb(var(--green));
 }
 .theme #night-switch::after {
@@ -189,40 +201,28 @@ body {
   height: 0.8em;
   transition: transform 200ms ease-in-out;
 }
-
 .theme.night #night-switch::after {
   transform: translate(1em);
 }
 
 /* ------------------------------- NAVIGATION ------------------------------- */
-.menu-nav {
-  font-size: 1.5rem;
-  color: rgb(var(--black));
+.hint {
   position: fixed;
   left: 1em;
   bottom: 1em;
   z-index: 5;
+  font-size: 1.5rem;
 }
-.menu-nav ul {
+.hint button {
+  color: rgb(var(--text));
+  background-color: rgb(var(--beige));
+  width: 1.4em;
+  height: 1.4em;
   display: flex;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  background-color: rgb(var(--green));
-  padding: 2em;
-  border-top-right-radius: 0.5em;
-  flex-direction: column;
-  gap: 1em;
+  justify-content: center;
   align-items: center;
-  -webkit-clip-path: circle(0 at bottom left);
-          clip-path: circle(0 at bottom left);
-  transition: -webkit-clip-path 500ms ease-in-out;
-  transition: clip-path 500ms ease-in-out;
-  transition: clip-path 500ms ease-in-out, -webkit-clip-path 500ms ease-in-out;
-}
-.menu-nav ul.active {
-  -webkit-clip-path: circle(200% at bottom left);
-          clip-path: circle(200% at bottom left);
+  border-radius: 50%;
+  box-shadow: 2px 2px 3px rgba(var(--black), 0.5);
 }
 
 /* --------------------------------- CONTACT -------------------------------- */
@@ -239,7 +239,8 @@ body {
   width: 35rem;
   padding: 1em;
   background-color: rgb(var(--beige));
-  border-radius: 1em;
+  border-radius: 0.5em;
+  border: 1px solid rgba(var(--text), 0.5);
 }
 #contact-form * {
   display: block;
@@ -278,33 +279,36 @@ body {
   padding: 0.5em 1em;
   background-color: rgb(var(--beige));
   border: 1px solid rgb(var(--text));
-  border-radius: 0.2em;
+  border-radius: 0.5em;
 }
-
-#first-name-container {
+#contact-form #first-name-container {
   grid-area: first-name;
 }
-
-#mail-container {
+#contact-form #mail-container {
   grid-area: mail;
 }
-
-#subject-container {
+#contact-form #subject-container {
   grid-area: subject;
 }
-
-#message-container {
+#contact-form #message-container {
   grid-area: message;
 }
-
-#contact-form > button {
+#contact-form #contact-form > button {
   grid-area: submit;
+}
+
+.popup.fail {
+  border: solid 2px red;
+}
+.popup.succes {
+  border: solid 2px green;
 }
 
 /* -------------------------------- CAROUSSEL -------------------------------- */
 .projects-content {
   width: 90%;
   max-width: 1000px;
+  max-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -317,7 +321,6 @@ body {
   display: flex;
   aspect-ratio: 16/10;
   width: 100%;
-  max-height: 90vh;
   border-radius: 0.5em;
   margin: 4rem 0 7rem;
 }
@@ -419,7 +422,7 @@ body {
 .progress .dot {
   font-size: 0.8rem;
   cursor: pointer;
-  border-radius: 50%;
+  border-radius: 100vh;
   width: 1em;
   height: 1em;
   border: 0.15em solid #efefef;
