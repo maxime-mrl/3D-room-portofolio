@@ -6,7 +6,7 @@
   font-family: "Varela Round";
   src: url("../assets/fonts/VarelaRound-Regular.ttf");
 }
-:root {
+:root { /* color variable are rgb values -- like that so I can play with opacity */
   --green: 176, 215, 181;
   --beige: 223, 219, 212;
   --black: 30, 30, 30;

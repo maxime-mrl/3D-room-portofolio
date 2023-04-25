@@ -2,6 +2,7 @@ import { InteractionManager } from './three.interactive/build/three.interactive.
 import Environment from './utils/environment.js';
 
 const animations = {};
+const interactions = [];
 
 export default class World { // World is everithing regarding 3D world after initialization (set the room, add some light updating etc)
     constructor(assets) {
@@ -46,6 +47,34 @@ export default class World { // World is everithing regarding 3D world after ini
     setInteractions = (target, action, type="click") => {
         this.interactionManager.add(this.room[target]);
         this.room[target].addEventListener(type, action);
+
+        if (this.room[target].type == "Group") {
+            this.room[target].children.forEach(object => {
+                interactions.push({
+                    object: object,
+                    originalMaterial: object.material
+                })
+            })
+        } else {
+            interactions.push({
+                object: this.room[target],
+                originalMaterial: this.room[target].material
+            })
+        }
+    }
+
+    hint() {
+        const hintMaterial = new THREE.MeshStandardMaterial({
+            color: 0xFF0000
+        })
+        interactions.forEach(interaction => {
+            interaction.object.material = hintMaterial
+        })
+        setTimeout(() => {
+            interactions.forEach(interaction => {
+                interaction.object.material = interaction.originalMaterial
+            })
+        }, 1000);
     }
 
     Animate = (animation, speed, mode) => {
@@ -109,7 +138,7 @@ export default class World { // World is everithing regarding 3D world after ini
     update = () => { // update rendering
         const deltaTime = this.timer.getDelta(); // get elapsed time since last call to ensure speed const could be possible by hand but hey three.js allows it
         // console.log(Math.round(deltaTime*1000));
-        this.interactionManager.update()
+        this.interactionManager.update();
         this.mixer.update(deltaTime);
         this.render();
         this.frameRequest = requestAnimationFrame(this.update);
