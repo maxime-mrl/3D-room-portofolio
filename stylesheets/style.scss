@@ -37,6 +37,10 @@ ol, ul {
     list-style: none;
 }
 
+textarea {
+    resize: none;
+}
+
 a {
     color: unset;
     text-decoration: none;
@@ -79,6 +83,7 @@ body {
     justify-content: center;
     align-items: center;
     backdrop-filter: blur(5px);
+    background-color: rgb(from var(--beige) / 50%);
 }
 
 .hidden { /* for all element that need to be present in dom but invisible for accessibility */
@@ -212,6 +217,71 @@ body {
     }
 }
 
+/* --------------------------------- CONTACT -------------------------------- */
+#contact .h1 {
+    text-align: center;
+}
+#contact-form {
+    color: var(--text);
+    display: grid;
+    grid-template-areas:
+    "first-name"
+    "mail"
+    "subject"
+    "message"
+    "message"
+    "submit"
+    ;
+    margin: 3vh 5vw;
+    gap: 1em 0.5em;
+    width: 35rem;
+    padding: 1em;
+    background-color: var(--beige);
+    border-radius: 1em;
+    // border: 1px solid #495356;
+    * {
+        display: block;
+        width: 100%;
+        &::placeholder {
+            color: #495356;
+        }
+    }
+    & > * {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .succes {
+        border: solid 2px green;
+    }
+    .fail {
+        border: solid 2px red;
+        &::placeholder {
+            color: darkred;
+        }
+    }
+    label {
+        font-weight: 500;
+        margin-bottom: 0.3em;
+    }
+    input, button, textarea {
+        padding: 0.5em 1em;
+        background-color: var(--beige);
+        border: 1px solid var(--text);
+        border-radius: 0.2em;
+    }
+}
+
+#first-name-container { grid-area: first-name }
+#mail-container { grid-area: mail }
+#subject-container { grid-area: subject }
+#message-container { grid-area: message }
+#contact-form > button { grid-area: submit }
+
+
+
 /* -------------------------------- CAROUSSEL -------------------------------- */
 .projects-content {
     width: 90%;
@@ -327,6 +397,11 @@ body {
         background-color: #efefef;
     }
 }
+
+/* -------------------------------------------------------------------------- */
+/*                                   DESKTOP                                  */
+/* -------------------------------------------------------------------------- */
+
 @media screen and (min-width: 768px) {
     .caroussel-content .text {
         .subtitle {

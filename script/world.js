@@ -38,15 +38,36 @@ export default class World { // World is everithing regarding 3D world after ini
         this.setInteractions("chair", () => this.Animate("chair-anim", 2, "both-way"));
         this.setInteractions("paraglider", () => this.Animate("paraglider-anim", 10, "reset-after"));
         this.setInteractions("cofee-cup", () => this.Animate("cofee-anim", 2, "both-way"));
+        this.setInteractions("letter", () => this.Animate("letter-top-anim", 2, "forward"), "mouseover");
+        this.setInteractions("letter", () => this.Animate("letter-top-anim", 2, "backward"), "mouseout");
+        this.setInteractions("letter", () => openModal("contact"));
     };
 
-    setInteractions = (target, action) => {
+    setInteractions = (target, action, type="click") => {
         this.interactionManager.add(this.room[target]);
-        this.room[target].addEventListener("click", action);
+        this.room[target].addEventListener(type, action);
     }
 
-    Animate = (animation, speed, mode) => { // need to make it work
-        if (!animations[animation]) {
+    Animate = (animation, speed, mode) => {
+        if (mode == "forward" || mode == "backward") {
+            if (!animations[animation]) {
+                const clip = this.fullRoom.animations.find(element => element.name === animation);
+                animations[animation] = this.mixer.clipAction(clip);
+                if (mode == "forward") animations[animation].setDuration(speed);     
+                else animations[animation].setDuration(-speed);
+                animations[animation].setLoop(THREE.LoopOnce);  
+                animations[animation].clampWhenFinished = true;
+            } else {
+                if (mode == "forward") {
+                    animations[animation].paused = false;
+                    animations[animation].timeScale = Math.abs(animations[animation].timeScale);
+                }
+                if (mode == "backward") {
+                    animations[animation].paused = false;
+                    animations[animation].timeScale = -Math.abs(animations[animation].timeScale);
+                }
+            }
+        } else if (!animations[animation]) {
             const clip = this.fullRoom.animations.find(element => element.name === animation);
             animations[animation] = this.mixer.clipAction(clip);    
             animations[animation].setDuration(speed);
@@ -88,6 +109,7 @@ export default class World { // World is everithing regarding 3D world after ini
     update = () => { // update rendering
         const deltaTime = this.timer.getDelta(); // get elapsed time since last call to ensure speed const could be possible by hand but hey three.js allows it
         // console.log(Math.round(deltaTime*1000));
+        this.interactionManager.update()
         this.mixer.update(deltaTime);
         this.render();
         this.frameRequest = requestAnimationFrame(this.update);
