@@ -7,10 +7,10 @@ const colors = {
             fog: 0xe8e7e1
         },
         css: {
-            green: "#b0d7b5",
-            beige: "#dfdbd4",
-            black: "#1e1e1e",
-            text: "#1e1e1e",
+            green: "176, 215, 181",
+            beige: "223, 219, 212",
+            black: "30, 30, 30",
+            text: "30, 30, 30",
         }
     },
     night: {
@@ -20,10 +20,10 @@ const colors = {
             fog: 0x5b6378
         },
         css: {
-            green: "#244c40",
-            beige: "#494761",
-            black: "#1e1e1e",
-            text: "#eff1ed",
+            green: "36, 76, 64",
+            beige: "73, 71, 97",
+            black: "30, 30, 30",
+            text: "239, 241, 237",
         }
     },
 }

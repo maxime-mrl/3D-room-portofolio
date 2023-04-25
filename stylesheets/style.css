@@ -7,10 +7,10 @@
   src: url("../assets/fonts/VarelaRound-Regular.ttf");
 }
 :root {
-  --green: #b0d7b5;
-  --beige: #dfdbd4;
-  --black: #1e1e1e;
-  --text: #1e1e1e;
+  --green: 176, 215, 181;
+  --beige: 223, 219, 212;
+  --black: 30, 30, 30;
+  --text: 30, 30, 30;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -55,7 +55,7 @@ button {
 /* -------------------------------------------------------------------------- */
 body {
   font-family: "Varela Round";
-  color: var(--text);
+  color: rgb(var(--text));
 }
 
 .h1 {
@@ -82,7 +82,7 @@ body {
   align-items: center;
   -webkit-backdrop-filter: blur(5px);
           backdrop-filter: blur(5px);
-  background-color: rgb(from var(--black) r g b / 50%);
+  background-color: rgb(var(--beige), 0.5);
 }
 
 .hidden { /* for all element that need to be present in dom but invisible for accessibility */
@@ -120,7 +120,7 @@ body {
   position: fixed;
   width: 100%;
   height: 100vh;
-  background-color: var(--beige);
+  background-color: rgb(var(--beige));
   z-index: 999;
   display: flex;
   justify-content: center;
@@ -128,12 +128,12 @@ body {
   gap: 1em;
 }
 .loader .dot {
-  background-color: var(--black);
+  background-color: rgb(var(--black));
   border-radius: 100vh;
   width: 1em;
   height: 1em;
   animation: loader 1s linear infinite;
-  box-shadow: 3px 5px 6px rgba(30, 30, 30, 0.6);
+  box-shadow: 3px 5px 6px rgba(var(--black), 0.5);
   transform: translateY(50%) scale(1);
 }
 .loader .dot:nth-child(2) {
@@ -146,7 +146,7 @@ body {
   animation-delay: 600ms;
 }
 .loader .loaded {
-  background-color: var(--green);
+  background-color: rgb(var(--green));
 }
 
 /* --------------------------------- THREEJS -------------------------------- */
@@ -176,14 +176,14 @@ body {
   width: 2.2em;
   height: 1.2em;
   border-radius: 2em;
-  background-color: var(--green);
+  background-color: rgb(var(--green));
 }
 .theme #night-switch::after {
   content: "";
   position: absolute;
   left: 0.2em;
   top: 0.2em;
-  background-color: var(--black);
+  background-color: rgb(var(--black));
   border-radius: 2em;
   width: 0.8em;
   height: 0.8em;
@@ -197,7 +197,7 @@ body {
 /* ------------------------------- NAVIGATION ------------------------------- */
 .menu-nav {
   font-size: 1.5rem;
-  color: var(--black);
+  color: rgb(var(--black));
   position: fixed;
   left: 1em;
   bottom: 1em;
@@ -208,7 +208,7 @@ body {
   position: fixed;
   bottom: 0;
   left: 0;
-  background-color: var(--green);
+  background-color: rgb(var(--green));
   padding: 2em;
   border-top-right-radius: 0.5em;
   flex-direction: column;
@@ -231,14 +231,14 @@ body {
 }
 
 #contact-form {
-  color: var(--text);
+  color: rgb(var(--text));
   display: grid;
   grid-template-areas: "first-name" "mail" "subject" "message" "message" "submit";
   margin: 3vh 5vw;
   gap: 1em 0.5em;
   width: 35rem;
   padding: 1em;
-  background-color: var(--beige);
+  background-color: rgb(var(--beige));
   border-radius: 1em;
 }
 #contact-form * {
@@ -246,10 +246,10 @@ body {
   width: 100%;
 }
 #contact-form *::-moz-placeholder {
-  color: #495356;
+  color: rgba(var(--text), 0.5);
 }
 #contact-form *::placeholder {
-  color: #495356;
+  color: rgba(var(--text), 0.5);
 }
 #contact-form > * {
   height: 100%;
@@ -276,8 +276,8 @@ body {
 }
 #contact-form input, #contact-form button, #contact-form textarea {
   padding: 0.5em 1em;
-  background-color: var(--beige);
-  border: 1px solid var(--text);
+  background-color: rgb(var(--beige));
+  border: 1px solid rgb(var(--text));
   border-radius: 0.2em;
 }
 
