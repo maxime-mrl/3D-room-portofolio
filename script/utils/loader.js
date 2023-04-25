@@ -24,6 +24,9 @@ export default class Loader { // load every assets for the scene then initialize
                 case "video":
                     this.loadVideo(asset);
                     break;
+                case "audio":
+                    this.loadAudio(asset);
+                    break;
                 case "image":
                     this.loadImage(asset);
                     break;
@@ -80,10 +83,17 @@ export default class Loader { // load every assets for the scene then initialize
         });
     }
 
+    loadAudio(asset) {
+        const audio = new Audio(asset.path)
+        this.oneLoaded(asset.name, {
+            audio,
+            src: asset.path
+        })
+    }
+
     oneLoaded = (name, file) => { // called every time somethings load -- check if everything loaded to continue or just wait
         this.items[name] = file;
         this.loaded++;
-        console.log(name)
         if (this.loaded !== this.queue) return;
         console.log("%cLoaded successfully!", "color: #09814A; font-weight: bold");
         this.overlay.style.display = "none";

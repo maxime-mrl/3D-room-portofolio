@@ -211,6 +211,7 @@ body {
     z-index: 5;
     font-size: 1.5rem;
     button {
+        user-select: none;
         color: rgb(var(--text));
         background-color: rgb(var(--beige));
         width: 1.4em;

@@ -214,6 +214,9 @@ body {
   font-size: 1.5rem;
 }
 .hint button {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   color: rgb(var(--text));
   background-color: rgb(var(--beige));
   width: 1.4em;

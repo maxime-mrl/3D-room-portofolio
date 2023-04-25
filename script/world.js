@@ -42,6 +42,8 @@ export default class World { // World is everithing regarding 3D world after ini
         this.setInteractions("letter", () => this.Animate("letter-top-anim", 2, "forward"), "mouseover");
         this.setInteractions("letter", () => this.Animate("letter-top-anim", 2, "backward"), "mouseout");
         this.setInteractions("letter", () => openModal("contact"));
+        this.setInteractions("keyboard", () => this.assets.typing.audio = playAudio(this.assets.typing))
+        this.setInteractions("Cube", () => this.assets.oof.audio = playAudio(this.assets.oof))
     };
 
     setInteractions = (target, action, type="click") => {

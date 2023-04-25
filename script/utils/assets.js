@@ -9,4 +9,14 @@ export default [
         name: "screen-animation",
         path: "/assets/video/projects-video.mp4"
     },
+    {
+        type: "audio",
+        name: "typing",
+        path: "/assets/audio/keyboard.mp3"
+    },
+    {
+        type: "audio",
+        name: "oof",
+        path: "/assets/audio/ooooh.mp3"
+    },
 ]
