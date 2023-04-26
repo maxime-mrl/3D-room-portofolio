@@ -17,7 +17,6 @@ window.renderer = setRenderer(); // renderer
 new Loader(loadingOverlay).load();
 new Resizer(renderer, camera).resize();
 createControls();
-addHelpers();
 
 function setRenderer() { // create renderer and set it up
     const renderer = new THREE.WebGLRenderer({
@@ -51,17 +50,3 @@ function createControls() { // create orbits controls and set limitations
     camera.position.set(8,6,8);
     controls.update();
 }
-
-function addHelpers() {
-    // HELPERS
-    const gridHelper = new THREE.GridHelper(10, 10);
-    const axesHelper = new THREE.AxesHelper(15);
-    scene.add(gridHelper);
-    scene.add(axesHelper);
-}
-
-
-
-
-
-
