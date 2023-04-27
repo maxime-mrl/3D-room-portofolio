@@ -21,8 +21,8 @@ export default class Loader { // load every assets for the scene then initialize
                 case "gltf":
                     this.loadGltf(asset);
                     break;
-                case "video":
-                    this.loadVideo(asset);
+                case "videoTexture":
+                    this.loadVideoTexture(asset);
                     break;
                 case "audio":
                     this.loadAudio(asset);
@@ -36,18 +36,12 @@ export default class Loader { // load every assets for the scene then initialize
         })
     }
 
-    loadImage = (asset) => { // not used rn but did it for test so for now it stays
-        const imageTexture = new THREE.TextureLoader().load(asset.path);
-        this.oneLoaded(asset.name, imageTexture);
-    }
-
-    loadVideo = (asset) => { // load video as texture
+    loadVideoTexture = (asset) => { // load video as texture
         const video = document.createElement("video");
         video.src = asset.path;
         video.muted = true;
         video.playsInline = true;
         video.loop = true;
-
 
         video.play()
         .then(() => {
@@ -83,12 +77,12 @@ export default class Loader { // load every assets for the scene then initialize
         });
     }
 
-    loadAudio(asset) {
-        const audio = new Audio(asset.path)
+    loadAudio = (asset) => {
+        const audio = new Audio(asset.path);
         this.oneLoaded(asset.name, {
             audio,
             src: asset.path
-        })
+        });
     }
 
     oneLoaded = (name, file) => { // called every time somethings load -- check if everything loaded to continue or just wait
@@ -102,17 +96,9 @@ export default class Loader { // load every assets for the scene then initialize
     
     updateProgress = (url, loaded, total) => {
         const progress = loaded / total;
-        if (progress >= 0.25) {
-            this.overlay.querySelectorAll(".dot")[0].className = "dot loaded";
-        }
-        if (progress >= 0.5) {
-            this.overlay.querySelectorAll(".dot")[1].className = "dot loaded";
-        }
-        if (progress >= 0.75) {
-            this.overlay.querySelectorAll(".dot")[2].className = "dot loaded";
-        }
-        if (progress >= 1) {
-            this.overlay.querySelectorAll(".dot")[3].className = "dot loaded";
-        }
+        if (progress >= 0.25) this.overlay.querySelectorAll(".dot")[0].className = "dot loaded";
+        if (progress >= 0.5) this.overlay.querySelectorAll(".dot")[1].className = "dot loaded";
+        if (progress >= 0.75) this.overlay.querySelectorAll(".dot")[2].className = "dot loaded";
+        if (progress >= 1) this.overlay.querySelectorAll(".dot")[3].className = "dot loaded";
     }
 }

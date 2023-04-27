@@ -1,43 +1,33 @@
 import "./utils/utilities.js"; // add general function like toRadian
 import "./utils/init3D.js"; // create 3D world
 
-const burger = document.querySelector(".menu-nav > ul");
-const popup = document.querySelector(".popup")
-let activeModal = "";
 
 const formElems = document.querySelectorAll("#contact-form input, #contact-form textarea");
+const images = document.querySelectorAll(".caroussel-content > *");
+const autoDefil = document.querySelector(".caroussel .auto");
+let progress = document.querySelector(".caroussel .progress");
+const popup = document.querySelector(".popup")
+
+let activeModal = "";
 const inputs = []
 
 const mailRule = /^[a-z][-._a-z0-9]*@[a-z0-9][-.a-z0-9]+\.[a-z]{2,}$/i; // mail must: start with letter after wich can be every letter number and -._ then @ and then domain with about same rule as mail name start with letter or number; no underscore then must avec . followed by extension (only letter with 2 or more character)
 const basicRules = /^.{1,60}$/i // firstName, lastName, adress and city can more or less be anything depending on the country
 const messageRule = /^.{10,500}$/ // message can also be anything only rule is preventing too short or long messages
 
-const images = document.querySelectorAll(".caroussel-content > *");
-const autoDefil = document.querySelector(".caroussel .auto");
-let progress = document.querySelector(".caroussel .progress")
 let actualSlide = 0;
 let autoSlideInterval;
 initCaroussel()
 
 /* -------------------------------------------------------------------------- */
-/*                                 BURGER MENU                                */
-/* -------------------------------------------------------------------------- */
-window.toggleBurger = () => {
-    burger.classList.toggle("active")
-}
-
-/* -------------------------------------------------------------------------- */
 /*                        DOM INTERACTION FROM 3D SCENE                       */
 /* -------------------------------------------------------------------------- */
 window.openModal = targetId => { // open modal like caroussel
-    console.log("open")
     if (activeModal) closeModal();
     activeModal = document.getElementById(targetId);
     activeModal.className = "modal-active";
     cancelAnimationFrame(world.frameRequest); // stop updating render to save perf
-    setTimeout(() => { // don't really know why, but the click that open modal is registered by this eventlistener if no timeout
-        activeModal.addEventListener("click", modalClick);
-    }, 100);
+    activeModal.addEventListener("click", modalClick);
 }
 
 const closeModal = () => { // close any modal opened
@@ -57,10 +47,8 @@ function modalClick(e) { // listener function for click -- check if click is not
 
 function displayPopup(customClass, message) {
     popup.innerHTML = message;
-    popup.className = "popup active " + customClass
-    setTimeout(() => {
-        popup.className = "popup"
-    }, 1500);
+    popup.className = "popup active " + customClass;
+    setTimeout(() => popup.className = "popup", 1500);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -83,23 +71,19 @@ formElems.forEach(elem => { // go through All form input
         regex,
         err
     });
-    elem.addEventListener("blur", () => { // listen for focus change on input and check if correct
-        check(regex, elem, err);
-    })
+    elem.addEventListener("blur", () => check(regex, elem, err)) // listen for focus change on input and check if correct
 })
 
 window.submitForm = () => { // check if all form is good before "submiting"
     let error = false;
     inputs.forEach(input => { // check all input
-        if (!check(input.regex, input.elem, input.err)) {
-            error = true;
-        }
+        if (!check(input.regex, input.elem, input.err)) error = true;
     })
     if (error) { // if one or more error alert it
-        displayPopup("fail", ":/ At least one wrong entry")
+        displayPopup("fail", ":/ At least one wrong entry");
         return;
     }
-    displayPopup("sucess", "Success !")
+    displayPopup("sucess", "Success !");
 }
 
 function check(regEx, input, errorTxt) { // check if one input is valid
@@ -107,13 +91,13 @@ function check(regEx, input, errorTxt) { // check if one input is valid
         // regex success => apply success style + placeholder
         input.className = "sucess";
         input.setAttribute("placeHolder", input.originalPlaceholder);
-        return true; // return true used for submitform to see if validated or not
+        return true;
     }
     // regex success => apply error style + placeholder and reset input value
     input.className = "fail";
     input.value = "";
     input.setAttribute("placeHolder", errorTxt);
-    return false; // return false used for submitform to see if validated or not
+    return false;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -128,10 +112,8 @@ window.changeSlide = (to) => {
     images[actualSlide].className = "active"; // display wanted image
     images[actualSlide].querySelector("video").play();
     // update dot progress
-    progress.forEach(dot => {
-        dot.className = "dot"
-    })
-    progress[actualSlide].className = "dot active"
+    progress.forEach(dot => dot.className = "dot");
+    progress[actualSlide].className = "dot active";
 }
 
 window.goToSlide = (to) => {
@@ -148,24 +130,23 @@ function play() {
         if (document.querySelector(".caroussel .text:hover")) return;
         changeSlide(1)
     }, 6000);
-    autoDefil.setAttribute("data-state", "play") // change datastae of play/pause container to update CSS
+    autoDefil.setAttribute("data-state", "play"); // change datastae of play/pause container to update CSS
 }
 window.play = play;
 
 window.pause = () => {
     clearInterval(autoSlideInterval);
-    autoDefil.setAttribute("data-state", "pause") // change datastae of play/pause container to update CSS
+    autoDefil.setAttribute("data-state", "pause"); // change datastae of play/pause container to update CSS
 }
 
 function initCaroussel() {
     if (autoDefil.getAttribute("data-state") == "play") play();
     images.forEach((e, i) => {
-        const dot = document.createElement("div")
-        dot.className = "dot"
-        progress.appendChild(dot)
-        dot.addEventListener("click", () => goToSlide(i))
+        const dot = document.createElement("div");
+        dot.className = "dot";
+        progress.appendChild(dot);
+        dot.addEventListener("click", () => goToSlide(i));
     })
-    progress = progress.querySelectorAll("*")
-    progress[0].className = "dot active"
+    progress = progress.querySelectorAll("*");
+    progress[0].className = "dot active";
 }
-

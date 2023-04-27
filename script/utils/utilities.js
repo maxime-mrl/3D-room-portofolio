@@ -3,6 +3,6 @@ window.toRadian = (angle) => { // convert degree to radian
 }
 
 window.playAudio = (target) => {
-    target.audio.play()
-    return new Audio(target.src)
+    target.audio.play();
+    return new Audio(target.src);
 }

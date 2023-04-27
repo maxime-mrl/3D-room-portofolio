@@ -1,4 +1,4 @@
-const themeBtn = document.querySelector("#night-switch")
+const themeBtn = document.querySelector("#night-switch");
 const colors = {
     day: {
         environment: {
@@ -54,7 +54,7 @@ export default class Environment { // create every environment elements (ambiant
         scene.add(this.sun);
         scene.add(this.hlight);
 
-        themeBtn.addEventListener("click", this.swicthTheme)
+        themeBtn.addEventListener("click", this.swicthTheme);
     }
 
     swicthTheme = () => {
@@ -85,10 +85,7 @@ export default class Environment { // create every environment elements (ambiant
     }
 
     addPointLight = (pos) => { // create a point light based on position
-        if (!pos) {
-            console.error("cannot add spot light parameters not given");
-            return;
-        }
+        if (!pos) return console.error("cannot add spot light parameters not given");
         const light = new THREE.PointLight(0xFAAC51, 1, 20, 1.5);
         light.position.set(pos.x, pos.y, pos.z);
         window.lightcolor = light.color;
@@ -104,10 +101,8 @@ export default class Environment { // create every environment elements (ambiant
     }
 
     addSpotLight = (pos, target) => { // create a spot light based on position
-        if (!pos || !target) {
-            console.error("cannot add spot light parameters not given");
-            return;
-        }
+        if (!pos || !target) return console.error("cannot add spot light parameters not given");
+
         const light = new THREE.SpotLight(0xffbbbb, 5, undefined, toRadian(45), 0.9, 1.8);
         light.position.set(pos.x, pos.y, pos.z);
         light.target = target;
@@ -117,20 +112,18 @@ export default class Environment { // create every environment elements (ambiant
         light.shadow.camera.far = 20;
         light.shadow.mapSize.set(1500,1500);
         light.shadow.normalBias = 0.1;
+
         // add to scene
         scene.add(light);
         return light;
     }
 
-    toggleLight = (light) => {
+    toggleLight = (light) => { // turn on or off light
         if (light.intensity > 0.5) {
             light["mIntensity"] = light.intensity;
             light.intensity = 0;
         }
-        else if (light.mIntensity) {
-            light.intensity = light.mIntensity;
-        } else {
-            light.intensity = 1;
-        }
+        else if (light.mIntensity) light.intensity = light.mIntensity;
+        else light.intensity = 1;
     }
 }

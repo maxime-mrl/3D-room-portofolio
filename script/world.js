@@ -18,7 +18,8 @@ export default class World { // World is everithing regarding 3D world after ini
         this.timer = new THREE.Clock(); // create Three clock to get delta time
         this.update();
     }
-    setRoom = () => {
+
+    setRoom = () => { // add room to scene + set up
         scene.add(this.fullRoom.scene);
 
         // add screen texture
@@ -32,21 +33,21 @@ export default class World { // World is everithing regarding 3D world after ini
         const deskLight = this.environment.addSpotLight(this.room["desk_lamp"].position, this.room.letter);
         const bedLight = this.environment.addPointLight(this.room["lamp"].position);
         // add Interactions
-        this.setInteractions("screen-video", () => openModal("projects"));
-        this.setInteractions("lamp", () => this.environment.toggleLight(bedLight));
-        this.setInteractions("desk_lamp", () => this.environment.toggleLight(deskLight));
-        this.setInteractions("globe", () => this.Animate("globe-anim", 2, "repeat"));
-        this.setInteractions("chair", () => this.Animate("chair-anim", 2, "both-way"));
-        this.setInteractions("paraglider", () => this.Animate("paraglider-anim", 10, "reset-after"));
-        this.setInteractions("cofee-cup", () => this.Animate("cofee-anim", 2, "both-way"));
-        this.setInteractions("letter", () => this.Animate("letter-top-anim", 2, "forward"), "mouseover");
-        this.setInteractions("letter", () => this.Animate("letter-top-anim", 2, "backward"), "mouseout");
-        this.setInteractions("letter", () => openModal("contact"));
-        this.setInteractions("keyboard", () => this.assets.typing.audio = playAudio(this.assets.typing))
-        this.setInteractions("Cube", () => this.assets.oof.audio = playAudio(this.assets.oof))
+        this.setInteractions("screen-video", "click", () => openModal("projects"));
+        this.setInteractions("lamp", "click", () => this.environment.toggleLight(bedLight));
+        this.setInteractions("desk_lamp", "click", () => this.environment.toggleLight(deskLight));
+        this.setInteractions("globe", "click", () => this.Animate("globe-anim", 2, "repeat"));
+        this.setInteractions("chair", "click", () => this.Animate("chair-anim", 2, "both-way"));
+        this.setInteractions("paraglider", "click", () => this.Animate("paraglider-anim", 10, "reset-after"));
+        this.setInteractions("cofee-cup", "click", () => this.Animate("cofee-anim", 2, "both-way"));
+        this.setInteractions("letter", "click", () => openModal("contact"));
+        this.setInteractions("keyboard", "click", () => this.assets.typing.audio = playAudio(this.assets.typing));
+        this.setInteractions("Cube", "click", () => this.assets.oof.audio = playAudio(this.assets.oof));
+        this.setInteractions("letter", "mouseover", () => this.Animate("letter-top-anim", 2, "forward"), "mouseover");
+        this.setInteractions("letter", "mouseout", () => this.Animate("letter-top-anim", 2, "backward"), "mouseout");
     };
 
-    setInteractions = (target, action, type="click") => {
+    setInteractions = (target, type, action) => { // create interaction for elements
         this.interactionManager.add(this.room[target]);
         this.room[target].addEventListener(type, action);
 
@@ -65,31 +66,28 @@ export default class World { // World is everithing regarding 3D world after ini
         }
     }
 
-    hint() {
+    hint = () => { // change color of every interactible elements
         const hintMaterial = new THREE.MeshStandardMaterial({
             color: 0xFF0000
-        })
-        interactions.forEach(interaction => {
-            interaction.object.material = hintMaterial
-        })
+        });
+
+        interactions.forEach(interaction => interaction.object.material = hintMaterial);
         setTimeout(() => {
-            interactions.forEach(interaction => {
-                interaction.object.material = interaction.originalMaterial
-            })
+            interactions.forEach(interaction => interaction.object.material = interaction.originalMaterial);
         }, 1800);
     }
 
-    Animate = (animation, speed, mode) => {
-        if (mode == "forward" || mode == "backward") {
-            if (!animations[animation]) {
+    Animate = (animation, speed, mode) => { // manage all animation
+        if (mode == "forward" || mode == "backward") { // if animation only one way handled differently 
+            if (!animations[animation]) { // if animation not initialized create it
                 const clip = this.fullRoom.animations.find(element => element.name === animation);
                 animations[animation] = this.mixer.clipAction(clip);
-                if (mode == "forward") animations[animation].setDuration(speed);     
-                else animations[animation].setDuration(-speed);
-                animations[animation].setLoop(THREE.LoopOnce);  
+                if (mode == "forward") animations[animation].setDuration(speed); // forward => positive speed  
+                else animations[animation].setDuration(-speed); // backward => negative speed
+                animations[animation].setLoop(THREE.LoopOnce);
                 animations[animation].clampWhenFinished = true;
-            } else {
-                if (mode == "forward") {
+            } else { // when animation arleady exist (replaying)
+                if (mode == "forward") { // reset the timing for if same animation is used forward and backward
                     animations[animation].paused = false;
                     animations[animation].timeScale = Math.abs(animations[animation].timeScale);
                 }
@@ -98,19 +96,19 @@ export default class World { // World is everithing regarding 3D world after ini
                     animations[animation].timeScale = -Math.abs(animations[animation].timeScale);
                 }
             }
-        } else if (!animations[animation]) {
+        } else if (!animations[animation]) { // if animation not initialized create it
             const clip = this.fullRoom.animations.find(element => element.name === animation);
             animations[animation] = this.mixer.clipAction(clip);    
             animations[animation].setDuration(speed);
             animations[animation].setLoop(THREE.LoopOnce);  
             animations[animation].clampWhenFinished = true;
-        } else {
-            if (mode == "both-way") {
+        } else { // if arleady exist
+            if (mode == "both-way") { // revert animation
                 animations[animation].paused = false;
                 animations[animation].timeScale = -animations[animation].timeScale;
                 animations[animation].setLoop(THREE.LoopOnce); 
-            } else {
-                animations[animation].reset()
+            } else { // reset to replay it
+                animations[animation].reset();
             }
         }
         animations[animation].play();
@@ -122,12 +120,12 @@ export default class World { // World is everithing regarding 3D world after ini
         }
     }
 
-    updateClock = () => { // update the clock time
+    updateClock = () => { // update the clock time to the user local time
         const date = new Date();
         const time = [date.getHours(), date.getMinutes(), date.getSeconds()];
         const angle = {
-            h: (time[0] + time[1]/60) * 30,
-            m: time[1]*6,
+            h: (time[0] + time[1]/60) * 30, // 12 hours, 360° => 30° steps -- add minutes as 0.something hours to make angle right
+            m: time[1]*6, // 60 minutes, 360° => 6° steps
         };
         this.room["clock-h"].rotation.z = - toRadian(angle.h);
         this.room["clock-m"].rotation.z = - toRadian(angle.m);
@@ -138,15 +136,10 @@ export default class World { // World is everithing regarding 3D world after ini
 
     frameRequest; // make accessible from class instance so possible to stop updating on modal oppening (for perf)
     update = () => { // update rendering
-        const deltaTime = this.timer.getDelta(); // get elapsed time since last call to ensure speed const could be possible by hand but hey three.js allows it
-        // console.log(Math.round(deltaTime*1000));
+        const deltaTime = this.timer.getDelta();
         this.interactionManager.update();
         this.mixer.update(deltaTime);
-        this.render();
-        this.frameRequest = requestAnimationFrame(this.update);
-    }
-
-    render() {
         renderer.render(scene, camera);
+        this.frameRequest = requestAnimationFrame(this.update);
     }
 }

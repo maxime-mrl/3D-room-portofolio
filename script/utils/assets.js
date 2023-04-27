@@ -5,7 +5,7 @@ export default [
         path: "/assets/3d/scene-v5.gltf"
     },
     {
-        type: "video",
+        type: "videoTexture",
         name: "screen-animation",
         path: "/assets/video/projects-video.mp4"
     },
@@ -19,4 +19,4 @@ export default [
         name: "oof",
         path: "/assets/audio/ooooh.mp3"
     },
-]
+];

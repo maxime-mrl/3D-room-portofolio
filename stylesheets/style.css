@@ -99,28 +99,12 @@ body {
   white-space: nowrap;
 }
 
-.btn {
-  font-size: 1.5rem;
-  background-color: rgba(239, 239, 239, 0.1254901961);
-  padding: 0.7em 2em;
-  border-radius: 0.5em;
-  border: 1px solid rgba(239, 239, 239, 0.3764705882);
-  transition: 500ms;
-}
-.btn:hover {
-  color: #1e1e1e;
-  border: 1px solid #1e1e1e;
-  background-color: rgba(239, 239, 239, 0.5019607843);
-  transform: scale(1.05);
-  letter-spacing: 0.002em;
-}
-
 .popup {
   position: fixed;
   z-index: 100;
   top: 10%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   padding: 1em;
   border-radius: 0.5em;
   font-size: 1.5rem;
@@ -136,6 +120,7 @@ body {
   position: fixed;
   width: 100%;
   height: 100vh;
+  height: 100dvh;
   background-color: rgb(var(--beige));
   z-index: 999;
   display: flex;
@@ -205,7 +190,6 @@ body {
   transform: translate(1em);
 }
 
-/* ------------------------------- NAVIGATION ------------------------------- */
 .hint {
   position: fixed;
   left: 1em;
@@ -234,16 +218,17 @@ body {
 }
 
 #contact-form {
-  color: rgb(var(--text));
   display: grid;
-  grid-template-areas: "first-name" "mail" "subject" "message" "message" "submit";
-  margin: 3vh 5vw;
-  gap: 1em 0.5em;
+  grid-template-rows: 1fr 1fr 1fr 3fr 0.6fr;
+  gap: 1em;
   width: 35rem;
+  max-width: 95vw;
   padding: 1em;
+  margin: 3vh;
+  color: rgb(var(--text));
   background-color: rgb(var(--beige));
-  border-radius: 0.5em;
   border: 1px solid rgba(var(--text), 0.5);
+  border-radius: 0.5em;
 }
 #contact-form * {
   display: block;
@@ -284,21 +269,6 @@ body {
   border: 1px solid rgb(var(--text));
   border-radius: 0.5em;
 }
-#contact-form #first-name-container {
-  grid-area: first-name;
-}
-#contact-form #mail-container {
-  grid-area: mail;
-}
-#contact-form #subject-container {
-  grid-area: subject;
-}
-#contact-form #message-container {
-  grid-area: message;
-}
-#contact-form #contact-form > button {
-  grid-area: submit;
-}
 
 .popup.fail {
   border: solid 2px red;
@@ -314,9 +284,8 @@ body {
   max-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 2rem;
+  gap: 5vh;
 }
 
 .caroussel {
@@ -329,7 +298,7 @@ body {
 }
 
 .caroussel-content {
-  color: white;
+  color: rgb(var(--text));
 }
 .caroussel-content > div > * {
   position: absolute;
@@ -345,21 +314,33 @@ body {
   width: 100%;
 }
 .caroussel-content .text {
-  height: calc(100% + 10rem);
-  margin-top: -4rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  height: calc(100% + 10rem);
+  margin-top: -4rem;
 }
 .caroussel-content .text > * {
   max-height: 3em;
 }
+.caroussel-content .btn {
+  padding: 0.7em 2em;
+  font-size: 6vw;
+  background-color: rgba(239, 239, 239, 0.2);
+  border: 1px solid rgba(239, 239, 239, 0.4);
+  border-radius: 0.5em;
+  transition: 500ms;
+}
+.caroussel-content .btn:hover {
+  color: #1e1e1e;
+  border: 1px solid #1e1e1e;
+  background-color: rgba(239, 239, 239, 0.5);
+  transform: scale(1.05);
+  letter-spacing: 0.002em;
+}
 .caroussel-content .subtitle {
   font-size: 8vw;
-}
-.caroussel-content .btn {
-  font-size: 6vw;
 }
 .caroussel-content > .hidden-slide {
   animation: hide-slide 500ms forwards;
@@ -410,7 +391,7 @@ body {
   color: #1e1e1e;
 }
 .caroussel:has(.active .black) .controls button {
-  text-shadow: 1px 1px 4px rgba(239, 239, 239, 0.7333333333);
+  text-shadow: 1px 1px 4px rgba(239, 239, 239, 0.4);
 }
 
 .progress {
@@ -460,27 +441,28 @@ body {
     opacity: 1;
   }
   .caroussel-content .text {
+    color: #efefef;
     height: 100%;
     margin-top: 0;
     justify-content: center;
     gap: 10%;
     padding-bottom: 2em;
-    background-color: rgba(30, 30, 30, 0.5019607843);
+    background-color: rgba(30, 30, 30, 0.4);
     border-radius: 0.5em;
     filter: drop-shadow(5px 5px 5px #1e1e1e);
     transition: opacity 500ms ease-in-out;
     opacity: 0;
   }
   .caroussel-content .text.black-txt {
-    background-color: rgba(239, 239, 239, 0.5019607843);
-    filter: drop-shadow(5px 5px 5px rgba(239, 239, 239, 0.5647058824));
+    background-color: rgba(239, 239, 239, 0.4);
+    filter: drop-shadow(5px 5px 5px rgba(239, 239, 239, 0.6));
   }
   .subtitle.black {
     color: #1e1e1e;
   }
   .btn.black {
-    background-color: rgba(30, 30, 30, 0.4392156863);
-    border-color: rgba(30, 30, 30, 0.6666666667);
+    background-color: rgba(30, 30, 30, 0.5);
+    border-color: rgba(30, 30, 30, 0.7);
   }
 }
 /* -------------------------------------------------------------------------- */

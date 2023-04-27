@@ -37,7 +37,7 @@ function createControls() { // create orbits controls and set limitations
     controls.enablePan = false; // block movement (only left zoom + rot)
 
     // rotation limits
-    controls.target.set(0,  1.2, 0)
+    controls.target.set(0, 1.2, 0);
     controls.minAzimuthAngle = 0.3;
     controls.maxAzimuthAngle = 1; // horizontal
     controls.minPolarAngle = 0.5; // vertical
