@@ -34,32 +34,41 @@ export default class World { // World is everithing regarding 3D world after ini
         const bedLight = this.environment.addPointLight(this.room["lamp"].position);
         // add Interactions
         this.setInteractions("screen-video", "click", () => openModal("projects"));
+        this.setInteractions("letter", "click", () => openModal("contact"));
+
         this.setInteractions("lamp", "click", () => this.environment.toggleLight(bedLight));
         this.setInteractions("desk_lamp", "click", () => this.environment.toggleLight(deskLight));
-        this.setInteractions("globe", "click", () => this.Animate("globe-anim", 2, "repeat"));
-        this.setInteractions("chair", "click", () => this.Animate("chair-anim", 2, "both-way"));
-        this.setInteractions("paraglider", "click", () => this.Animate("paraglider-anim", 10, "reset-after"));
-        this.setInteractions("cofee-cup", "click", () => this.Animate("cofee-anim", 2, "both-way"));
-        this.setInteractions("letter", "click", () => openModal("contact"));
+
         this.setInteractions("keyboard", "click", () => this.assets.typing.audio = playAudio(this.assets.typing));
         this.setInteractions("Cube", "click", () => this.assets.oof.audio = playAudio(this.assets.oof));
-        this.setInteractions("letter", "mouseover", () => this.Animate("letter-top-anim", 2, "forward"), "mouseover");
-        this.setInteractions("letter", "mouseout", () => this.Animate("letter-top-anim", 2, "backward"), "mouseout");
+
+        this.setInteractions("globe", "click", () => this.Animate("globe-anim", 2, "repeat"));
+        this.setInteractions("mouse", "click", () => this.Animate("mouse-anim", 2, "repeat"));
+        this.setInteractions("chair", "click", () => this.Animate("chair-anim", 2, "both-way"));
+        this.setInteractions("cofee-cup", "click", () => this.Animate("cofee-anim", 2, "both-way"));
+        this.setInteractions("drawer", "click", () => this.Animate("drawer-anim", 0.5, "both-way"));
+        this.setInteractions("book5", "click", () => this.Animate("book5-anim", 1, "both-way"));
+        this.setInteractions("paraglider", "click", () => this.Animate("paraglider-anim", 10, "reset-after"));
+        this.setInteractions("letter", "mouseover", () => this.Animate("letter-top-anim", 1, "forward"));
+        this.setInteractions("letter", "mouseout", () => this.Animate("letter-top-anim", 1, "backward"));
     };
 
     setInteractions = (target, type, action) => { // create interaction for elements
         this.interactionManager.add(this.room[target]);
         this.room[target].addEventListener(type, action);
 
+        if (interactions.find(elem => elem.name == target)) return; // if element arleady added to interactions hint return (for multiple interactions object)
         if (this.room[target].type == "Group") {
             this.room[target].children.forEach(object => {
                 interactions.push({
+                    name: target,
                     object: object,
                     originalMaterial: object.material
                 })
             })
         } else {
             interactions.push({
+                name: target,
                 object: this.room[target],
                 originalMaterial: this.room[target].material
             })
