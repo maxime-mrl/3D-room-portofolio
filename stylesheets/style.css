@@ -84,6 +84,12 @@ body {
           backdrop-filter: blur(5px);
   background-color: rgb(var(--beige), 0.5);
 }
+.modal-active .close-modal {
+  position: fixed;
+  top: 0.5em;
+  left: 0.5em;
+  font-size: 1.5rem;
+}
 
 .hidden { /* for all element that need to be present in dom but invisible for accessibility */
   border: 0;

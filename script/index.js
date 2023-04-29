@@ -30,7 +30,7 @@ window.openModal = targetId => { // open modal like caroussel
     activeModal.addEventListener("click", modalClick);
 }
 
-const closeModal = () => { // close any modal opened
+window.closeModal = () => { // close any modal opened
     if (activeModal == "") return;
     document.removeEventListener("click", modalClick);
     activeModal.className = "modal-hidden";
@@ -38,10 +38,9 @@ const closeModal = () => { // close any modal opened
     world.update();
 }
 
-function modalClick(e) { // listener function for click -- check if click is not inside modal close it
-    // need to check if user has clicked somewhere on modal (meaning child count too) and if not close modal
-    if (window.activeModal == "") return;
-    if (activeModal != e.target) return;
+function modalClick(e) { // listener function for click -- check if click is not inside modal content close it
+    if (window.activeModal == "") return; // if no modal oppened
+    if (activeModal != e.target && e.target.parentNode.className != "close-modal") return; // if click outside of content or in the close btn continue -- close btn has an element inside so the click register on it -> go back to parent
     closeModal();
 }
 

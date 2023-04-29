@@ -35,6 +35,7 @@ export default class World { // World is everithing regarding 3D world after ini
         // add Interactions
         this.setInteractions("screen-video", "click", () => openModal("projects"));
         this.setInteractions("letter", "click", () => openModal("contact"));
+        this.setInteractions("letter-box", "click", () => openModal("contact"));
 
         this.setInteractions("lamp", "click", () => this.environment.toggleLight(bedLight));
         this.setInteractions("desk_lamp", "click", () => this.environment.toggleLight(deskLight));

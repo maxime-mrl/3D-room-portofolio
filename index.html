@@ -18,10 +18,16 @@
     </div>
     <div class="theme">
         <i class="fa-regular fa-sun"></i>
-        <button id="night-switch"></button>
+        <button id="night-switch">
+            <span class="hidden">switch day/night theme</span>
+        </button>
         <i class="fa-regular fa-moon"></i>
     </div>
     <div class="modal-hidden" id="projects">
+        <button class="close-modal">
+            <i class="fa-solid fa-xmark"></i>
+            <span class="hidden">close</span>
+        </button>
         <div class="projects-content">
             <h2 class="h1">My projects</h2>
             <div class="caroussel">
@@ -89,6 +95,10 @@
         </div>
     </div>
     <div class="modal-hidden" id="contact">
+        <button class="close-modal">
+            <i class="fa-solid fa-xmark"></i>
+            <span class="hidden">close</span>
+        </button>
         <div class="form-container">
             <h2 class="h1">Get in touch!</h2>
             <form id="contact-form">
