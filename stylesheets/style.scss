@@ -320,7 +320,8 @@ body {
     }
     .btn {
         padding: 0.7em 2em;
-        font-size: 6vw;
+        font-size: $medium-text-size;
+        font-size: min(6vw, $medium-text-size);
         background-color: fade-out($caroussel-white, 0.8);
         border: 1px solid fade-out($caroussel-white, 0.6);
         border-radius: $radius;
@@ -333,7 +334,10 @@ body {
             letter-spacing: 0.002em;
         }
     }
-    .subtitle { font-size: 8vw; }
+    .subtitle {
+        font-size: 3rem;
+        font-size: min(8vw, 3rem);
+    }
     & > .hidden-slide { animation: hide-slide 500ms forwards }
     & > .active { animation: display-slide 500ms forwards }
 }
@@ -405,20 +409,6 @@ body {
 /* -------------------------------------------------------------------------- */
 /*                                   DESKTOP                                  */
 /* -------------------------------------------------------------------------- */
-
-@media screen and (min-width: 768px) {
-    .caroussel-content {
-        .text {
-            .subtitle {
-                font-size: 2.8rem;
-            }
-            .btn {
-                font-size: $medium-text-size;
-            }
-        }
-    }
-}
-
 @media screen and (min-aspect-ratio: 4/5) {
     #card-projects { grid-template-rows: 1fr 3.5fr; }
     .caroussel {
