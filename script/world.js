@@ -50,8 +50,14 @@ export default class World { // World is everithing regarding 3D world after ini
         this.setInteractions("drawer", "click", () => this.Animate("drawer-anim", 0.5, "both-way"));
         this.setInteractions("book5", "click", () => this.Animate("book5-anim", 1, "both-way"));
         this.setInteractions("paraglider", "click", () => this.Animate("paraglider-anim", 10, "reset-after"));
-        this.setInteractions("letter", "mouseover", () => this.Animate("letter-top-anim", 1, "forward"));
-        this.setInteractions("letter", "mouseout", () => this.Animate("letter-top-anim", 1, "backward"));
+        this.setInteractions("letter", "mouseover", () => {
+            this.Animate("letter-top-anim", 1, "forward");
+            document.body.style.cursor = "pointer";
+        });
+        this.setInteractions("letter", "mouseout", () => {
+            this.Animate("letter-top-anim", 1, "backward");
+            document.body.style.cursor = "initial";
+        });
     };
 
     setInteractions = (target, type, action) => { // create interaction for elements

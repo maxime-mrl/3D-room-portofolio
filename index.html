@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
     <meta name="description" content="Maxime Morel ThreeJS portfolio">
     <title>Maxime Portfolio</title>
     <link rel="stylesheet" href="./stylesheets/style.css">
@@ -23,6 +24,23 @@
         </button>
         <i class="fa-regular fa-moon"></i>
     </div>
+    <div class="hint">
+        <button onclick="world.hint()">?</button>
+    </div>
+    <ul class="socials">
+        <li><a href="https://github.com/maximel-mrl" target="_blank">
+            <i class="fa-brands fa-github"></i>
+            <span class="hidden">Github</span>
+        </a></li>
+        <li><a href="https://www.behance.net/maxime-mrl" target="_blank">
+            <i class="fa-brands fa-behance"></i>
+            <span class="hidden">Behnace</span>
+        </a></li>
+        <li><a href="https://instagram.com/maxime.morl?igshid=YmMyMTA2M2Y=" target="_blank">
+            <i class="fa-brands fa-instagram"></i>
+            <span class="hidden">Instagram</span>
+        </a></li>
+    </ul>
     <div class="modal-hidden" id="projects">
         <button class="close-modal">
             <i class="fa-solid fa-xmark"></i>
@@ -122,9 +140,8 @@
             </form>
         </div>
     </div>
-    <div class="hint">
-        <button onclick="world.hint()">?</button>
-    </div>
+    <div class="fade-out left"></div>
+    <div class="fade-out right"></div>
     <div class="render-container">
         <canvas></canvas>
     </div>
