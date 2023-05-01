@@ -23,6 +23,7 @@ initCaroussel()
 /*                        DOM INTERACTION FROM 3D SCENE                       */
 /* -------------------------------------------------------------------------- */
 window.openModal = targetId => { // open modal like caroussel
+    document.body.style.cursor = "initial";
     if (activeModal) closeModal();
     activeModal = document.getElementById(targetId);
     activeModal.className = "modal-active";

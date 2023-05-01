@@ -50,36 +50,34 @@ export default class World { // World is everithing regarding 3D world after ini
         this.setInteractions("drawer", "click", () => this.Animate("drawer-anim", 0.5, "both-way"));
         this.setInteractions("book5", "click", () => this.Animate("book5-anim", 1, "both-way"));
         this.setInteractions("paraglider", "click", () => this.Animate("paraglider-anim", 10, "reset-after"));
-        this.setInteractions("letter", "mouseover", () => {
-            this.Animate("letter-top-anim", 1, "forward");
-            document.body.style.cursor = "pointer";
-        });
-        this.setInteractions("letter", "mouseout", () => {
-            this.Animate("letter-top-anim", 1, "backward");
-            document.body.style.cursor = "initial";
-        });
+        this.setInteractions("letter", "mouseover", () => this.Animate("letter-top-anim", 1, "forward"));
+        this.setInteractions("letter", "mouseout", () => this.Animate("letter-top-anim", 1, "backward"));
     };
 
     setInteractions = (target, type, action) => { // create interaction for elements
-        this.interactionManager.add(this.room[target]);
-        this.room[target].addEventListener(type, action);
+        if (!this.interactionManager.interactiveObjects.find(interaction => interaction.name == target)) { // if object is not arleady animated
+            this.interactionManager.add(this.room[target]);
+            this.room[target].addEventListener("mouseover", () => document.body.style.cursor = "pointer");
+            this.room[target].addEventListener("mouseout", () => document.body.style.cursor = "initial");
 
-        if (interactions.find(elem => elem.name == target)) return; // if element arleady added to interactions hint return (for multiple interactions object)
-        if (this.room[target].type == "Group") {
-            this.room[target].children.forEach(object => {
+            if (this.room[target].type == "Group") {
+                this.room[target].children.forEach(object => {
+                    interactions.push({
+                        name: target,
+                        object: object,
+                        originalMaterial: object.material
+                    })
+                })
+            } else {
                 interactions.push({
                     name: target,
-                    object: object,
-                    originalMaterial: object.material
+                    object: this.room[target],
+                    originalMaterial: this.room[target].material
                 })
-            })
-        } else {
-            interactions.push({
-                name: target,
-                object: this.room[target],
-                originalMaterial: this.room[target].material
-            })
+            }
+
         }
+        this.room[target].addEventListener(type, action);
     }
 
     hint = () => { // change color of every interactible elements
