@@ -14,6 +14,7 @@
     --black: 30, 30, 30;
     --text: 30, 30, 30;
 }
+
 $radius: 0.5em;
 $medium-text-size: 1.5rem;
 $caroussel-white: #efefef;
@@ -83,8 +84,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    backdrop-filter: blur(5px);
     background-color: rgb(var(--beige), 0.5);
+    backdrop-filter: blur(5px);
     .close-modal {
         position: fixed;
         top: 0.5em;
@@ -114,9 +115,9 @@ body {
     left: 50%;
     transform: translateX(-50%);
     padding: 1em;
-    border-radius: $radius;
-    font-size: $medium-text-size;
     background-color: rgb(var(--beige));
+    font-size: $medium-text-size;
+    border-radius: $radius;
     display: none;
     &.active {
         display: block;
@@ -126,23 +127,23 @@ body {
 /* ---------------------------- LOADING ANIMATION --------------------------- */
 .loader {
     position: fixed;
+    z-index: 999;
     width: 100%;
     height: 100vh;
     height: 100dvh;
-    background-color: rgb(var(--beige));
-    z-index: 999;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 1em;
+    background-color: rgb(var(--beige));
     .dot {
-        background-color: rgb(var(--black));
-        border-radius: 100vh; /* make round */
         width: 1em;
         height: 1em;
-        animation: loader 1s linear infinite;
-        box-shadow: 3px 5px 6px rgba(var(--black), 0.5);
+        background-color: rgb(var(--black));
+        border-radius: 100vh; /* make round */
         transform: translateY(50%) scale(1);
+        box-shadow: 3px 5px 6px rgba(var(--black), 0.5);
+        animation: loader 1s linear infinite;
         @for $i from 1 through 3 {
             &:nth-child(#{$i+1}) {
                 animation-delay: $i*200ms;
@@ -154,7 +155,6 @@ body {
     }
 }
 
-
 /* --------------------------------- THREEJS -------------------------------- */
 .render-container canvas {
     position: fixed;
@@ -163,31 +163,30 @@ body {
     height: 100dvh;
 }
 
-
 .theme {
     position: fixed;
+    z-index: 5;
     right: 0.5em;
     top: 0.5em;
-    z-index: 5;
-    font-size: 1.2rem;
     display: flex;
     align-items: center;
     gap: 0.3em;
+    font-size: 1.2rem;
     #night-switch {
         position: relative;
         width: 2.2em;
         height: 1.2em;
-        border-radius: 2em; /* to be round */
         background-color: rgb(var(--green));
+        border-radius: 2em; /* to be round */
         &::after {
             content: "";
             position: absolute;
-            left: 0.2em;
             top: 0.2em;
-            background-color: rgb(var(--black));
-            border-radius: 2em;
+            left: 0.2em;
             width: 0.8em;
             height: 0.8em;
+            background-color: rgb(var(--black));
+            border-radius: 2em;
             transition: transform 200ms ease-in-out;
         }
     }
@@ -198,19 +197,19 @@ body {
 
 .hint {
     position: fixed;
-    left: 1em;
-    bottom: 1em;
     z-index: 5;
+    bottom: 1em;
+    left: 1em;
     font-size: $medium-text-size;
     button {
-        user-select: none;
-        color: rgb(var(--text));
-        background-color: rgb(var(--beige));
         width: 1.4em;
         height: 1.4em;
         display: flex;
         justify-content: center;
         align-items: center;
+        color: rgb(var(--text));
+        background-color: rgb(var(--beige));
+        user-select: none;
         border-radius: 50%;
         box-shadow: 2px 2px 3px rgba(var(--black), 0.5);
     }
@@ -220,14 +219,15 @@ body {
 #contact .h1 {
     text-align: center;
 }
+
 #contact-form {
+    width: 35rem;
+    max-width: 95vw;
+    margin: 3vh;
+    padding: 1em;
     display: grid;
     grid-template-rows: 1fr 1fr 1fr 3fr 0.6fr;
     gap: 1em;
-    width: 35rem;
-    max-width: 95vw;
-    padding: 1em;
-    margin: 3vh;
     color: rgb(var(--text));
     background-color: rgb(var(--beige));
     border: 1px solid rgba(var(--text), 0.5);
@@ -287,11 +287,11 @@ body {
 
 .caroussel {
     position: relative;
-    display: flex;
-    aspect-ratio: 16 / 10;
     width: 100%;
-    border-radius: $radius;
     margin: 4rem 0 7rem;
+    aspect-ratio: 16 / 10;
+    display: flex;
+    border-radius: $radius;
 }
 
 .caroussel-content {
@@ -305,17 +305,17 @@ body {
         overflow: hidden;
         border-radius: $radius;
         > * {
-            transition: transform 500ms ease-in-out;
             width: 100%;
+            transition: transform 500ms ease-in-out;
         }
     }
     .text {
+        height: calc(100% + 10rem);
+        margin-top: -4rem;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        height: calc(100% + 10rem);
-        margin-top: -4rem;
         & > * { max-height: 3em; }
     }
     .btn {
@@ -328,8 +328,8 @@ body {
         transition: 500ms;
         &:hover {
             color: $caroussel-black;
-            border: 1px solid $caroussel-black;
             background-color: fade-out($caroussel-white, 0.5);
+            border: 1px solid $caroussel-black;
             transform: scale(1.05);
             letter-spacing: 0.002em;
         }
@@ -368,7 +368,7 @@ body {
 .auto[data-state=play] > #pause { display: flex; }
 .auto[data-state=pause] > #play { display: flex; }
 
-.caroussel:has(.active .black) { // has not well supported but not so important styling so not that big deal
+.caroussel:has(.active .black) { /* has not well supported but not so important styling so not that big deal */
     .progress {
         .dot {
             border: 0.15em solid $caroussel-black;
@@ -409,7 +409,7 @@ body {
 /* -------------------------------------------------------------------------- */
 /*                                   DESKTOP                                  */
 /* -------------------------------------------------------------------------- */
-@media screen and (min-aspect-ratio: 4/5) {
+@media screen and (min-aspect-ratio: 4/5) { /* since the caroussel has fix aspect ration with video, displaying should be depending on aspect ratio */
     #card-projects { grid-template-rows: 1fr 3.5fr; }
     .caroussel {
         margin: 0;
@@ -426,12 +426,12 @@ body {
         }
     }
     .caroussel-content .text {
-        color: $caroussel-white;
         height: 100%;
         margin-top: 0;
+        padding-bottom: 2em;
         justify-content: center;
         gap: 10%;
-        padding-bottom: 2em;
+        color: $caroussel-white;
         background-color: fade-out($caroussel-black, 0.6);
         border-radius: $radius;
         filter: drop-shadow(5px 5px 5px $caroussel-black);
@@ -439,8 +439,8 @@ body {
             background-color: fade-out($caroussel-white, 0.6);
             filter: drop-shadow(5px 5px 5px fade-out($caroussel-white, 0.4));
         }
-        transition: opacity 500ms ease-in-out;
         opacity: 0;
+        transition: opacity 500ms ease-in-out;
     }
     .subtitle.black {
         color: $caroussel-black;
