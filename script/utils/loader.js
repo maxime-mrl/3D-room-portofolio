@@ -1,4 +1,5 @@
 import { GLTFLoader } from "../three/examples/jsm/loaders/GLTFLoader.js";
+import { DRACOLoader } from "../three/examples/jsm/loaders/DRACOLoader.js";
 import assets from "./assets.js";
 import World from "../world.js";
 
@@ -9,6 +10,10 @@ export default class Loader { // load every assets for the scene then initialize
 
         this.overlay = loadOverlay;
         this.loader = new GLTFLoader(this.manager);
+        this.dracoLoader = new DRACOLoader(this.manager);
+        this.dracoLoader.setDecoderPath("https://www.gstatic.com/draco/versioned/decoders/1.5.6/");
+        this.dracoLoader.setDecoderConfig({ type: "js" });
+        this.loader.setDRACOLoader(this.dracoLoader)
         this.queue = assets.length;
         this.loaded = 0;
         this.items = {};
