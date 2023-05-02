@@ -2,7 +2,7 @@ export default [
     {
         type: "gltf",
         name: "room",
-        path: "/assets/3d/scene-v7_c.gltf"
+        path: "/assets/3d/scene-v7-c_c.gltf"
     },
     {
         type: "videoTexture",
@@ -18,5 +18,10 @@ export default [
         type: "audio",
         name: "oof",
         path: "/assets/audio/ooooh.mp3"
+    },
+    {
+        type: "audio",
+        name: "radio",
+        path: "/assets/audio/broken-radio-frequency.mp3"
     },
 ];

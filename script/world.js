@@ -42,6 +42,7 @@ export default class World { // World is everithing regarding 3D world after ini
 
         this.setInteractions("keyboard", "click", () => this.assets.typing.audio = playAudio(this.assets.typing));
         this.setInteractions("Cube", "click", () => this.assets.oof.audio = playAudio(this.assets.oof));
+        this.setInteractions("radio", "click", () => this.assets.oof.audio = playAudio(this.assets.radio));
 
         this.setInteractions("globe", "click", () => this.Animate("globe-anim", 2, "repeat"));
         this.setInteractions("mouse", "click", () => this.Animate("mouse-anim", 2, "repeat"));
@@ -52,6 +53,9 @@ export default class World { // World is everithing regarding 3D world after ini
         this.setInteractions("paraglider", "click", () => this.Animate("paraglider-anim", 10, "reset-after"));
         this.setInteractions("letter", "mouseover", () => this.Animate("letter-top-anim", 1, "forward"));
         this.setInteractions("letter", "mouseout", () => this.Animate("letter-top-anim", 1, "backward"));
+        // add animations
+        this.Animate("letter-box-anim", 5, "infinite")
+        this.Animate("room-entry-anim", 5, "infinite")
     };
 
     setInteractions = (target, type, action) => { // create interaction for elements
@@ -92,35 +96,24 @@ export default class World { // World is everithing regarding 3D world after ini
     }
 
     Animate = (animation, speed, mode) => { // manage all animation
-        if (mode == "forward" || mode == "backward") { // if animation only one way handled differently 
-            if (!animations[animation]) { // if animation not initialized create it
-                const clip = this.fullRoom.animations.find(element => element.name === animation);
-                animations[animation] = this.mixer.clipAction(clip);
-                if (mode == "forward") animations[animation].setDuration(speed); // forward => positive speed  
-                else animations[animation].setDuration(-speed); // backward => negative speed
-                animations[animation].setLoop(THREE.LoopOnce);
-                animations[animation].clampWhenFinished = true;
-            } else { // when animation arleady exist (replaying)
-                if (mode == "forward") { // reset the timing for if same animation is used forward and backward
-                    animations[animation].paused = false;
-                    animations[animation].timeScale = Math.abs(animations[animation].timeScale);
-                }
-                if (mode == "backward") {
-                    animations[animation].paused = false;
-                    animations[animation].timeScale = -Math.abs(animations[animation].timeScale);
-                }
-            }
-        } else if (!animations[animation]) { // if animation not initialized create it
+        if (!animations[animation]) { // if animation not initialized create it
             const clip = this.fullRoom.animations.find(element => element.name === animation);
-            animations[animation] = this.mixer.clipAction(clip);    
-            animations[animation].setDuration(speed);
-            animations[animation].setLoop(THREE.LoopOnce);  
+            animations[animation] = this.mixer.clipAction(clip);
+            if (mode == "backward") animations[animation].setDuration(-speed); // backward mode 
+            else animations[animation].setDuration(speed);
+            if (mode != "infinite") animations[animation].setLoop(THREE.LoopOnce); // infinite mode
             animations[animation].clampWhenFinished = true;
         } else { // if arleady exist
             if (mode == "both-way") { // revert animation
                 animations[animation].paused = false;
                 animations[animation].timeScale = -animations[animation].timeScale;
                 animations[animation].setLoop(THREE.LoopOnce); 
+            } else if (mode == "forward") { // reset the timing for if same animation is used forward and backward
+                animations[animation].paused = false;
+                animations[animation].timeScale = Math.abs(animations[animation].timeScale);
+            } else if (mode == "backward") {
+                animations[animation].paused = false;
+                animations[animation].timeScale = -Math.abs(animations[animation].timeScale);
             } else { // reset to replay it
                 animations[animation].reset();
             }
