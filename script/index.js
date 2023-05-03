@@ -1,5 +1,5 @@
 import "./utils/utilities.js"; // add general function like toRadian
-import init3D from "./utils/init3D.js"; // create 3D world
+import init3D from "./utils/init3D.js";
 import { Caroussel, Form } from "./dom.js";
 
 window.colors = {
@@ -33,22 +33,22 @@ let activeModal = ""; // oppened modal
 
 window.caroussel = new Caroussel();
 window.contactForm = new Form();
-init3D()
+init3D() // create 3D world
 
 /* -------------------------------------------------------------------------- */
 /*                        DOM INTERACTION FROM 3D SCENE                       */
 /* -------------------------------------------------------------------------- */
-window.openModal = targetId => { // open modal like caroussel
+window.openModal = targetId => { // open modal
     document.body.style.cursor = "initial";
     if (activeModal) closeModal();
     activeModal = document.getElementById(targetId);
     activeModal.className = "modal-active";
     cancelAnimationFrame(world.frameRequest); // stop updating render to save perf
     activeModal.addEventListener("click", modalClick);
-    if (targetId == "projects") caroussel.slides[caroussel.actualSlide].querySelector("video").play(); // play video which should be paused
+    if (targetId == "projects") caroussel.slides[caroussel.actualSlide].querySelector("video").play(); // play video caroussel video
 }
 
-window.closeModal = () => { // close any modal opened
+window.closeModal = () => { // close modal opened
     if (activeModal == "") return;
     document.removeEventListener("click", modalClick);
     activeModal.className = "modal-hidden";

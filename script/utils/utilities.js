@@ -4,12 +4,12 @@ window.toRadian = (angle) => { // convert degree to radian
     return angle * Math.PI/180;
 }
 
-window.playAudio = (target) => {
+window.playAudio = (target) => { // play audio and reset it (to be abble to replay it just after)
     target.audio.play();
     return new Audio(target.src);
 }
 
-window.setColors = (to) => {
+window.setColors = (to) => { // set css color themes
     if (!colors[to]) return;
     
     document.documentElement.style.setProperty('--green', colors[to].css.green);
@@ -18,7 +18,7 @@ window.setColors = (to) => {
 }
 
 
-window.displayPopup = (customClass, message) => {
+window.displayPopup = (customClass, message) => { // display popup (error or success) with custom message
     popup.innerHTML = message;
     popup.className = "popup active " + customClass;
     setTimeout(() => popup.className = "popup", 1500);

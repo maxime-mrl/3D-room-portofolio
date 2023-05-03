@@ -1,17 +1,18 @@
 const themeBtn = document.querySelector("#night-switch");
 
-
 export default class Environment { // create every environment elements (ambiantlight sun ground fog, and then diverse type of light as needed)
     constructor() {
-        this.hlight = new THREE.AmbientLight(colors.day.environment.light[0], colors.day.environment.light[1]);
-        this.sun = new THREE.DirectionalLight(colors.day.environment.sun[0], colors.day.environment.sun[1]);
+        // light
+        this.hlight = new THREE.AmbientLight(colors.day.environment.light[0], colors.day.environment.light[1]); // env light
 
+        this.sun = new THREE.DirectionalLight(colors.day.environment.sun[0], colors.day.environment.sun[1]); // sun
         this.sun.castShadow = true;
         this.sun.shadow.camera.far = 20;
         this.sun.shadow.mapSize.set(1500,1500);
         this.sun.shadow.normalBias = 0.1;
         this.sun.position.set(-1, 15, 7);
 
+        // plane under the room
         const geometry = new THREE.BoxGeometry(1000, 1000, 1000);
         const material = new THREE.MeshStandardMaterial({
             color: 0xffffff,
@@ -21,19 +22,21 @@ export default class Environment { // create every environment elements (ambiant
         plane.position.y = 500;
         plane.receiveShadow = true;
         plane.castShadow = true;
-
-        scene.fog = new THREE.Fog(colors.day.environment.fog, 20, 100);
+        
+        scene.fog = new THREE.Fog(colors.day.environment.fog, 20, 100); // fog
+        // add everythong to scene
         scene.add(plane);
         scene.add(this.sun);
         scene.add(this.hlight);
 
-        const hours = (new Date()).getHours()
-        if (hours > 19 || hours < 7) this.swicthTheme()
+        // select theme for 3d environment
+        const hours = new Date().getHours();
+        if (hours > 19 || hours < 7) this.swicthTheme();
 
-        themeBtn.addEventListener("click", this.swicthTheme);
+        themeBtn.addEventListener("click", this.swicthTheme); // listen for theme change
     }
 
-    swicthTheme = () => {
+    swicthTheme = () => { // update color theme
         themeBtn.parentNode.classList.toggle("night")
         if (document.querySelector(".night")) {
             this.hlight.intensity = colors.night.environment.light[1];
@@ -53,7 +56,7 @@ export default class Environment { // create every environment elements (ambiant
     }
 
     addPointLight = (pos) => { // create a point light based on position
-        if (!pos) return console.error("cannot add spot light parameters not given");
+        if (!pos) return;
         const light = new THREE.PointLight(0xFAAC51, 1, 20, 1.5);
         light.position.set(pos.x, pos.y, pos.z);
         window.lightcolor = light.color;
@@ -69,7 +72,7 @@ export default class Environment { // create every environment elements (ambiant
     }
 
     addSpotLight = (pos, target) => { // create a spot light based on position
-        if (!pos || !target) return console.error("cannot add spot light parameters not given");
+        if (!pos || !target) return;
 
         const light = new THREE.SpotLight(0xffbbbb, 5, undefined, toRadian(45), 0.9, 1.8);
         light.position.set(pos.x, pos.y, pos.z);

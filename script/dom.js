@@ -14,7 +14,7 @@ export class Form {
             elem["originalPlaceholder"] = elem.getAttribute("placeholder"); // keep original placeholder to put it back if success
             const err = elem.getAttribute("data-err"); // get and store errore message
             let regex = this.basicRules; // regex wanted for specific input
-            switch (elem.name) { // if input is recognized change the regex to one specific for the input
+            switch (elem.name) { // if input is recognized change the regex to one specific to it
                 case "e-mail":
                     regex = this.mailRule;
                     break;
@@ -22,12 +22,12 @@ export class Form {
                     regex = this.messageRule;
                     break;
             }
-            this.inputs.push({ // add element, rules and error messages to inputs array used for checking all input when submiting
+            this.inputs.push({ // store infos
                 elem,
                 regex,
                 err
             });
-            elem.addEventListener("blur", () => this.check(regex, elem, err)) // listen for focus change on input and check if correct
+            elem.addEventListener("blur", () => this.check(regex, elem, err)) // listen for focus change on inputs
         })
     }
 
@@ -45,12 +45,12 @@ export class Form {
 
     check = (regEx, input, errorTxt) => { // check if one input is valid
         if (regEx.test(input.value)) { // test regex
-            // regex success => apply success style + placeholder
+            // succes
             input.className = "sucess";
             input.setAttribute("placeHolder", input.originalPlaceholder);
             return true;
         }
-        // regex success => apply error style + placeholder and reset input value
+        // fail
         input.className = "fail";
         input.value = "";
         input.setAttribute("placeHolder", errorTxt);
@@ -75,12 +75,15 @@ export class Caroussel {
     }
 
     changeSlide = (to) => {
-        slides[this.actualSlide].className = "hidden-slide"; // hide last slide
-        slides[this.actualSlide].querySelector("video").pause(); // pause old video for perfs
-        this.actualSlide += to; // define slide to display for access latter slides array
+        // hide last slide
+        slides[this.actualSlide].className = "hidden-slide";
+        slides[this.actualSlide].querySelector("video").pause();
+        // defines next slide to display
+        this.actualSlide += to;
         if (this.actualSlide < 0) this.actualSlide = slides.length-1;
         else if (this.actualSlide >= slides.length) this.actualSlide = 0;
-        slides[this.actualSlide].className = "active"; // display wanted slide
+        // display wanted slide
+        slides[this.actualSlide].className = "active";
         slides[this.actualSlide].querySelector("video").play();
         // update dot progress
         progress.forEach(dot => dot.className = "dot");

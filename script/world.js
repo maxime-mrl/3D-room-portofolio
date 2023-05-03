@@ -11,21 +11,20 @@ export default class World { // World is everithing regarding 3D world after ini
         this.fullRoom = assets.room;
         this.room = assets.room.objects;
 
-        this.interactionManager = new InteractionManager(renderer, camera, renderer.domElement);
-        this.environment = new Environment();
-        this.mixer = new THREE.AnimationMixer(this.fullRoom.scene);
+        this.interactionManager = new InteractionManager(renderer, camera, renderer.domElement); // handle click/hover etc event
+        this.environment = new Environment(); // light fog etc
+        this.mixer = new THREE.AnimationMixer(this.fullRoom.scene); // animations
         this.setRoom();
         this.updateClock();
         this.timer = new THREE.Clock(); // create Three clock to get delta time
         this.update();
-        setTimeout(() => {
+        setTimeout(() => { // add "hint" if user dosen't interact
             if (!interacted) this.Animate("hint-anim", 0.1, "forward")
         }, 8000)
     }
 
     setRoom = () => { // add room to scene + set up
         scene.add(this.fullRoom.scene);
-
         // add screen texture
         this.room["screen-video"].material = new THREE.MeshStandardMaterial({
             map: this.assets["screen-animation"],
@@ -63,35 +62,28 @@ export default class World { // World is everithing regarding 3D world after ini
     };
 
     setInteractions = (target, type, action) => { // create interaction for elements
-        if (!this.interactionManager.interactiveObjects.find(interaction => interaction.name == target)) { // if object is not arleady animated
+        if (!this.interactionManager.interactiveObjects.find(interaction => interaction.name == target)) { // if object is not arleady animated add all prior need (add to interaction manager, add hover cursor, add to interaction hint)
             this.interactionManager.add(this.room[target]);
+            // hover cursor change
             this.room[target].addEventListener("mouseover", () => document.body.style.cursor = "pointer");
             this.room[target].addEventListener("mouseout", () => document.body.style.cursor = "initial");
-
-            if (this.room[target].type == "Group") {
-                this.room[target].children.forEach(object => {
-                    interactions.push({
-                        name: target,
-                        object: object,
-                        originalMaterial: object.material
-                    })
-                })
-            } else {
+            // add element to interaction list for color change hint
+            this.room[target].traverse((node) => {
                 interactions.push({
                     name: target,
-                    object: this.room[target],
-                    originalMaterial: this.room[target].material
+                    object: node,
+                    originalMaterial: node.material
                 })
-            }
-
+            })
         }
+        // listen for wanted interaction
         this.room[target].addEventListener(type, () => {
             action();
             interacted = true;
         });
     }
 
-    hint = () => { // change color of every interactible elements
+    hint = () => { // change color of every interactible elements for 2s then revert back to original
         const hintMaterial = new THREE.MeshStandardMaterial({
             color: 0xFF0000
         });
@@ -99,10 +91,11 @@ export default class World { // World is everithing regarding 3D world after ini
         interactions.forEach(interaction => interaction.object.material = hintMaterial);
         setTimeout(() => {
             interactions.forEach(interaction => interaction.object.material = interaction.originalMaterial);
-        }, 1800);
+        }, 2000);
     }
 
     Animate = (animation, speed, mode) => { // manage all animation
+        // animation mode: "forward" "backward" "infinite" "both-way" "reset-after" "repeat" (repeat = default so anything unrecognized will repeat)
         if (!animations[animation]) { // if animation not initialized create it
             const clip = this.fullRoom.animations.find(element => element.name === animation);
             animations[animation] = this.mixer.clipAction(clip);
@@ -111,22 +104,23 @@ export default class World { // World is everithing regarding 3D world after ini
             if (mode != "infinite") animations[animation].setLoop(THREE.LoopOnce); // infinite mode
             animations[animation].clampWhenFinished = true;
         } else { // if arleady exist
-            if (mode == "both-way") { // revert animation
-                animations[animation].paused = false;
-                animations[animation].timeScale = -animations[animation].timeScale;
-                animations[animation].setLoop(THREE.LoopOnce); 
-            } else if (mode == "forward") { // reset the timing for if same animation is used forward and backward
-                animations[animation].paused = false;
-                animations[animation].timeScale = Math.abs(animations[animation].timeScale);
-            } else if (mode == "backward") {
-                animations[animation].paused = false;
-                animations[animation].timeScale = -Math.abs(animations[animation].timeScale);
-            } else { // reset to replay it
-                animations[animation].reset();
+            animations[animation].paused = false;
+            switch (mode) {
+                case "both-way": // revert animation
+                    animations[animation].timeScale = -animations[animation].timeScale;
+                    break;
+                case "forward": // reset the timing for if same animation is used forward and backward
+                    animations[animation].timeScale = Math.abs(animations[animation].timeScale);
+                    break;
+                case "backward":
+                    animations[animation].timeScale = -Math.abs(animations[animation].timeScale);
+                    break;
+                default:
+                    animations[animation].reset();
             }
         }
         animations[animation].play();
-        if (mode == "reset-after") {
+        if (mode == "reset-after") { // reset annimation 5sec after its end
             setTimeout(() => {
                 animations[animation].reset();
                 animations[animation].paused = true;
@@ -136,7 +130,7 @@ export default class World { // World is everithing regarding 3D world after ini
 
     updateClock = () => { // update the clock time to the user local time
         const date = new Date();
-        const time = [date.getHours(), date.getMinutes(), date.getSeconds()];
+        const time = [ date.getHours(), date.getMinutes(), date.getSeconds() ];
         const angle = {
             h: (time[0] + time[1]/60) * 30, // 12 hours, 360° => 30° steps -- add minutes as 0.something hours to make angle right
             m: time[1]*6, // 60 minutes, 360° => 6° steps
@@ -151,9 +145,9 @@ export default class World { // World is everithing regarding 3D world after ini
     frameRequest; // make accessible from class instance so possible to stop updating on modal oppening (for perf)
     update = () => { // update rendering
         const deltaTime = this.timer.getDelta();
-        this.interactionManager.update();
-        this.mixer.update(deltaTime);
-        renderer.render(scene, camera);
+        this.interactionManager.update(); // update interactions
+        this.mixer.update(deltaTime); // update animation
+        renderer.render(scene, camera); // render new frame
         this.frameRequest = requestAnimationFrame(this.update);
     }
 }
