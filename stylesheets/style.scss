@@ -194,11 +194,19 @@ body {
     }
 }
 
-.hint {
+footer {
     position: fixed;
     z-index: 2;
-    bottom: 0.5em;
-    left: 0.5em;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 0.5em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hint {
     font-size: $medium-text-size;
     button {
         width: 1.4em;
@@ -215,10 +223,6 @@ body {
 }
 
 .socials {
-    position: fixed;
-    z-index: 2;
-    bottom: 0.5em;
-    right: 0.5em;
     display: flex;
     gap: 0.5em;
     color: rgb(var(--text));
@@ -232,13 +236,12 @@ body {
 }
 
 .cc {
-    position: fixed;
-    z-index: 1;
-    bottom: 0.5em;
-    left: 50%;
-    transform: translateX(-50%);
+    font-size: min(4vw, 1rem);
+    color: rgb(var(--text));
     display: flex;
-    gap: 0.5em;
+    p {
+        user-select: none;
+    }
 }
 
 .fade-out {
