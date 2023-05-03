@@ -1,3 +1,5 @@
+const popup = document.querySelector(".popup");
+
 window.toRadian = (angle) => { // convert degree to radian
     return angle * Math.PI/180;
 }
@@ -13,4 +15,11 @@ window.setColors = (to) => {
     document.documentElement.style.setProperty('--green', colors[to].css.green);
     document.documentElement.style.setProperty('--beige', colors[to].css.beige);
     document.documentElement.style.setProperty('--text', colors[to].css.text);
+}
+
+
+window.displayPopup = (customClass, message) => {
+    popup.innerHTML = message;
+    popup.className = "popup active " + customClass;
+    setTimeout(() => popup.className = "popup", 1500);
 }

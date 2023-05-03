@@ -100,21 +100,21 @@
                     </div>
                 </div>
                 <div class="controls">
-                    <button id="prev" class="nav" onclick="changeSlide(-1)">
+                    <button id="prev" class="nav" onclick="caroussel.changeSlide(-1)">
                         <i class="fa-solid fa-chevron-left"></i>
                         <span class="hidden">previous</span>
                     </button>
                     <span class="auto" data-state="pause">
-                        <button id="play" onclick="play()">
+                        <button id="play" onclick="caroussel.play()">
                             <i class="fa-solid fa-play"></i>
                             <span class="hidden">activate auto play</span>
                         </button>
-                        <button id="pause" onclick="pause()">
+                        <button id="pause" onclick="caroussel.pause()">
                             <i class="fa-solid fa-pause"></i>
                             <span class="hidden">stop auto play</span>
                         </button>
                     </span>
-                    <button id="next" class="nav" onclick="changeSlide(1)">
+                    <button id="next" class="nav" onclick="caroussel.changeSlide(1)">
                         <i class="fa-solid fa-chevron-right"></i>
                         <span class="hidden">next</span>
                     </button>
@@ -148,7 +148,7 @@
                     <label for="message">Message</label>
                     <textarea name="message" id="message" cols="30" rows="10" placeholder="Your message" data-err="message required from 10 to 500 characters" required></textarea>
                 </div>
-                <button onclick="submitForm()">Submit</button>
+                <button onclick="contactForm.submitForm()">Submit</button>
             </form>
         </div>
     </section>
