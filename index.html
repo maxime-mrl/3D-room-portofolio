@@ -34,14 +34,18 @@
         </a></li>
         <li><a href="https://www.behance.net/maxime-mrl" target="_blank">
             <i class="fa-brands fa-behance"></i>
-            <span class="hidden">Behnace</span>
+            <span class="hidden">Behance</span>
         </a></li>
         <li><a href="https://instagram.com/maxime.morl?igshid=YmMyMTA2M2Y=" target="_blank">
             <i class="fa-brands fa-instagram"></i>
             <span class="hidden">Instagram</span>
         </a></li>
     </ul>
-    <div class="modal-hidden" id="projects">
+    <div class="cc">
+        <p>©️ 2023 - </p>
+        <h1>Maxime Morel</h1>
+    </div>
+    <section class="modal-hidden" id="projects">
         <button class="close-modal">
             <i class="fa-solid fa-xmark"></i>
             <span class="hidden">close</span>
@@ -52,7 +56,9 @@
                 <div class="caroussel-content">
                     <div class="active">
                         <div class="bg">
-                            <video src="assets/video/under-burger.mp4" autoplay muted loop playsinline></video>
+                            <video src="assets/video/under-burger.mp4" muted loop playsinline>
+                                Your browser doesn't support HTML5 video.
+                            </video>
                         </div>
                         <div class="text">
                             <h3 class="subtitle">Under Burger</h3>
@@ -61,7 +67,9 @@
                     </div>
                     <div class="hidden-slide">
                         <div class="bg">
-                            <video src="assets/video/crea-jardins.mp4" autoplay muted loop playsinline></video>
+                            <video src="assets/video/crea-jardins.mp4" muted loop playsinline>
+                                Your browser doesn't support HTML5 video.
+                            </video>
                         </div>
                         <div class="text black-txt">
                             <h3 class="subtitle black">Crea Jardins</h3>
@@ -70,7 +78,9 @@
                     </div>
                     <div class="hidden-slide">
                         <div class="bg">
-                            <video src="assets/video/flappy-bird.mp4" autoplay muted loop playsinline></video>
+                            <video src="assets/video/flappy-bird.mp4" muted loop playsinline>
+                                Your browser doesn't support HTML5 video.
+                            </video>
                         </div>
                         <div class="text">
                             <h3 class="subtitle">flappy-bird recreation</h3>
@@ -79,7 +89,9 @@
                     </div>
                     <div class="hidden-slide">
                         <div class="bg">
-                            <video src="assets/video/minecraft-2d.mp4" autoplay muted loop playsinline></video>
+                            <video src="assets/video/minecraft-2d.mp4" muted loop playsinline>
+                                Your browser doesn't support HTML5 video.
+                            </video>
                         </div>
                         <div class="text">
                             <h3 class="subtitle">Minecraft 2D</h3>
@@ -92,7 +104,7 @@
                         <i class="fa-solid fa-chevron-left"></i>
                         <span class="hidden">previous</span>
                     </button>
-                    <span class="auto" data-state="play">
+                    <span class="auto" data-state="pause">
                         <button id="play" onclick="play()">
                             <i class="fa-solid fa-play"></i>
                             <span class="hidden">activate auto play</span>
@@ -111,8 +123,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="modal-hidden" id="contact">
+    </section>
+    <section class="modal-hidden" id="contact">
         <button class="close-modal">
             <i class="fa-solid fa-xmark"></i>
             <span class="hidden">close</span>
@@ -122,10 +134,10 @@
             <form id="contact-form">
                 <div id="first-name-container">
                     <label for="first-name">Name</label>
-                    <input type="text" name="first-name" id="first" placeholder="Your name" data-err="Name required" required>
+                    <input type="text" name="first-name" id="first-name" placeholder="Your name" data-err="Name required" required>
                 </div>
                 <div id="mail-container">
-                    <label for="E-mail">Mail</label>
+                    <label for="mail">Mail</label>
                     <input type="email" name="e-mail" id="mail" placeholder="Your mail" data-err="invalid/missing mail" required>
                 </div>
                 <div id="subject-container">
@@ -139,7 +151,7 @@
                 <button onclick="submitForm()">Submit</button>
             </form>
         </div>
-    </div>
+    </section>
     <div class="fade-out left"></div>
     <div class="fade-out right"></div>
     <div class="render-container">

@@ -1,32 +1,5 @@
 const themeBtn = document.querySelector("#night-switch");
-const colors = {
-    day: {
-        environment: {
-            light: [0xFCE8B0, 1],
-            sun: [0xFDEEC4, 2],
-            fog: 0xe8e7e1
-        },
-        css: {
-            green: "176, 215, 181",
-            beige: "223, 219, 212",
-            black: "30, 30, 30",
-            text: "30, 30, 30",
-        }
-    },
-    night: {
-        environment: {
-            light: [0x6D72C3, 0.2],
-            sun: [0x94C5CC, 0.1],
-            fog: 0x5b6378
-        },
-        css: {
-            green: "36, 76, 64",
-            beige: "73, 71, 97",
-            black: "30, 30, 30",
-            text: "239, 241, 237",
-        }
-    },
-}
+
 
 export default class Environment { // create every environment elements (ambiantlight sun ground fog, and then diverse type of light as needed)
     constructor() {
@@ -54,6 +27,9 @@ export default class Environment { // create every environment elements (ambiant
         scene.add(this.sun);
         scene.add(this.hlight);
 
+        const hours = (new Date()).getHours()
+        if (hours > 19 || hours < 7) this.swicthTheme()
+
         themeBtn.addEventListener("click", this.swicthTheme);
     }
 
@@ -65,22 +41,14 @@ export default class Environment { // create every environment elements (ambiant
             this.hlight.color.setHex(colors.night.environment.light[0]);
             this.sun.color.setHex(colors.night.environment.sun[0]);
             scene.fog = new THREE.Fog(colors.night.environment.fog, 20, 100);
-
-            document.documentElement.style.setProperty('--green', colors.night.css.green);
-            document.documentElement.style.setProperty('--beige', colors.night.css.beige);
-            document.documentElement.style.setProperty('--black', colors.night.css.black);
-            document.documentElement.style.setProperty('--text', colors.night.css.text);
+            setColors("night")
         } else {
             this.hlight.intensity = colors.day.environment.light[1];
             this.sun.intensity = colors.day.environment.sun[1];
             this.hlight.color.setHex(colors.day.environment.light[0]);
             this.sun.color.setHex(colors.day.environment.sun[0]);
             scene.fog = new THREE.Fog(colors.day.environment.fog, 20, 100);
-
-            document.documentElement.style.setProperty('--green', colors.day.css.green);
-            document.documentElement.style.setProperty('--beige', colors.day.css.beige);
-            document.documentElement.style.setProperty('--black', colors.day.css.black);
-            document.documentElement.style.setProperty('--text', colors.day.css.text);
+            setColors("day")
         }
     }
 

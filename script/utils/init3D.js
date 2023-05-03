@@ -6,20 +6,13 @@ import { OrbitControls } from "../three/examples/jsm/controls/OrbitControls.js";
 import Loader from "./loader.js";
 import Resizer from "./resize.js";
 
-const canvas = document.querySelector(".render-container > canvas");
-const loadingOverlay = document.querySelector(".loader");
+export default () => {
+    const canvas = document.querySelector(".render-container > canvas");
+    const loadingOverlay = document.querySelector(".loader");
 
-window.scene = new THREE.Scene();
-window.camera = new THREE.PerspectiveCamera(55, window.innerWidth/window.innerHeight);
-window.renderer = setRenderer(); // renderer
-
-
-new Loader(loadingOverlay).load();
-new Resizer(renderer, camera).resize();
-createControls();
-
-function setRenderer() { // create renderer and set it up
-    const renderer = new THREE.WebGLRenderer({
+    window.scene = new THREE.Scene();
+    window.camera = new THREE.PerspectiveCamera(55, window.innerWidth/window.innerHeight);
+    window.renderer = new THREE.WebGLRenderer({
         canvas,
         antialias: true
     }); // renderer
@@ -29,10 +22,11 @@ function setRenderer() { // create renderer and set it up
     renderer.toneMappingExposure = 2.1;
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFShadowMap;
-    return renderer;
-}
 
-function createControls() { // create orbits controls and set limitations
+
+    new Loader(loadingOverlay).load();
+    new Resizer(renderer, camera);
+
     const controls = new OrbitControls(camera, canvas);
     controls.enablePan = false; // block movement (only left zoom + rot)
 
@@ -49,4 +43,7 @@ function createControls() { // create orbits controls and set limitations
 
     camera.position.set(8,6,8);
     controls.update();
+
+    const hours = (new Date()).getHours();
+    if (hours > 19 || hours < 7) setColors("night");
 }

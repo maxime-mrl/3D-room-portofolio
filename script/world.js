@@ -3,6 +3,7 @@ import Environment from './utils/environment.js';
 
 const animations = {};
 const interactions = [];
+let interacted = false;
 
 export default class World { // World is everithing regarding 3D world after initialization (set the room, add some light updating etc)
     constructor(assets) {
@@ -17,6 +18,9 @@ export default class World { // World is everithing regarding 3D world after ini
         this.updateClock();
         this.timer = new THREE.Clock(); // create Three clock to get delta time
         this.update();
+        setTimeout(() => {
+            if (!interacted) this.Animate("hint-anim", 0.1, "forward")
+        }, 8000)
     }
 
     setRoom = () => { // add room to scene + set up
@@ -81,7 +85,10 @@ export default class World { // World is everithing regarding 3D world after ini
             }
 
         }
-        this.room[target].addEventListener(type, action);
+        this.room[target].addEventListener(type, () => {
+            action();
+            interacted = true;
+        });
     }
 
     hint = () => { // change color of every interactible elements

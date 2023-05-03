@@ -4,7 +4,7 @@ export default class Resizer { // set render and camera size / aspect ratio to b
         this.camera = camera;
         window.addEventListener("resize", this.resize);
         window.addEventListener("orientationchange", this.resize); // on iphone orientation change don't trigger resize listener so listen for orientation
-        
+        this.resize();
     }
     resize = () => { // arrow function call because with normal call this is not defined apparently https://stackoverflow.com/questions/62735307/node-js-class-constructor-variables-undefined
         const width = window.innerWidth;

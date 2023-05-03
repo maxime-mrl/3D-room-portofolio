@@ -1,23 +1,51 @@
 import "./utils/utilities.js"; // add general function like toRadian
-import "./utils/init3D.js"; // create 3D world
+import init3D from "./utils/init3D.js"; // create 3D world
 
 
 const formElems = document.querySelectorAll("#contact-form input, #contact-form textarea");
 const images = document.querySelectorAll(".caroussel-content > *");
 const autoDefil = document.querySelector(".caroussel .auto");
 let progress = document.querySelector(".caroussel .progress");
-const popup = document.querySelector(".popup")
+const popup = document.querySelector(".popup");
+
+window.colors = {
+    day: {
+        environment: {
+            light: [0xFCE8B0, 1],
+            sun: [0xFDEEC4, 2],
+            fog: 0xe8e7e1
+        },
+        css: {
+            green: "176, 215, 181",
+            beige: "223, 219, 212",
+            text: "30, 30, 30",
+        }
+    },
+    night: {
+        environment: {
+            light: [0x6D72C3, 0.2],
+            sun: [0x94C5CC, 0.1],
+            fog: 0x5b6378
+        },
+        css: {
+            green: "36, 76, 64",
+            beige: "73, 71, 97",
+            text: "239, 241, 237",
+        }
+    },
+};
 
 let activeModal = "";
-const inputs = []
+const inputs = [];
 
 const mailRule = /^[a-z][-._a-z0-9]*@[a-z0-9][-.a-z0-9]+\.[a-z]{2,}$/i; // mail must: start with letter after wich can be every letter number and -._ then @ and then domain with about same rule as mail name start with letter or number; no underscore then must avec . followed by extension (only letter with 2 or more character)
-const basicRules = /^.{1,60}$/i // firstName, lastName, adress and city can more or less be anything depending on the country
-const messageRule = /^.{10,500}$/ // message can also be anything only rule is preventing too short or long messages
+const basicRules = /^.{1,60}$/; // firstName, lastName, adress and city can more or less be anything depending on the country
+const messageRule = /^.{10,500}$/; // message can also be anything only rule is preventing too short or long messages
 
 let actualSlide = 0;
 let autoSlideInterval;
 initCaroussel()
+init3D()
 
 /* -------------------------------------------------------------------------- */
 /*                        DOM INTERACTION FROM 3D SCENE                       */
@@ -29,6 +57,8 @@ window.openModal = targetId => { // open modal like caroussel
     activeModal.className = "modal-active";
     cancelAnimationFrame(world.frameRequest); // stop updating render to save perf
     activeModal.addEventListener("click", modalClick);
+    console.log(targetId)
+    if (targetId == "projects") images[actualSlide].querySelector("video").play(); // play video which should be paused
 }
 
 window.closeModal = () => { // close any modal opened
@@ -37,6 +67,9 @@ window.closeModal = () => { // close any modal opened
     activeModal.className = "modal-hidden";
     activeModal = "";
     world.update();
+    
+    images[actualSlide].querySelector("video").pause(); // pause video to save perfs
+    pause(); // pause caroussel defil to save perf
 }
 
 function modalClick(e) { // listener function for click -- check if click is not inside modal content close it
@@ -104,12 +137,12 @@ function check(regEx, input, errorTxt) { // check if one input is valid
 /*                                  CAROUSSEL                                 */
 /* -------------------------------------------------------------------------- */
 window.changeSlide = (to) => {
-    images[actualSlide].className = "hidden-slide"; // hide last image
-    images[actualSlide].querySelector("video").pause();
+    images[actualSlide].className = "hidden-slide"; // hide last slide
+    images[actualSlide].querySelector("video").pause(); // pause old video for perfs
     actualSlide += to; // define slide to display for access latter images array
     if (actualSlide < 0) actualSlide = images.length-1;
     else if (actualSlide >= images.length) actualSlide = 0;
-    images[actualSlide].className = "active"; // display wanted image
+    images[actualSlide].className = "active"; // display wanted slide
     images[actualSlide].querySelector("video").play();
     // update dot progress
     progress.forEach(dot => dot.className = "dot");
@@ -125,22 +158,23 @@ window.goToSlide = (to) => {
     changeSlide(0)
 }
 
-function play() {
+window.play = () => {
+    if (autoSlideInterval) return pause();
     autoSlideInterval = setInterval(() => {
         if (document.querySelector(".caroussel .text:hover")) return;
         changeSlide(1)
     }, 6000);
-    autoDefil.setAttribute("data-state", "play"); // change datastae of play/pause container to update CSS
+    autoDefil.setAttribute("data-state", "play"); // change datastate of play/pause container to update CSS
 }
-window.play = play;
 
 window.pause = () => {
+    if (!autoSlideInterval) return;
     clearInterval(autoSlideInterval);
-    autoDefil.setAttribute("data-state", "pause"); // change datastae of play/pause container to update CSS
+    autoSlideInterval = false;
+    autoDefil.setAttribute("data-state", "pause"); // change datastate of play/pause container to update CSS
 }
 
 function initCaroussel() {
-    if (autoDefil.getAttribute("data-state") == "play") play();
     images.forEach((e, i) => {
         const dot = document.createElement("div");
         dot.className = "dot";
