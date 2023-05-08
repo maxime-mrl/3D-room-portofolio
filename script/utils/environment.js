@@ -7,25 +7,30 @@ export default class Environment { // create every environment elements (ambiant
 
         this.sun = new THREE.DirectionalLight(colors.day.environment.sun[0], colors.day.environment.sun[1]); // sun
         this.sun.castShadow = true;
+        // set shadow size
+        this.sun.shadow.camera.near = 10;
         this.sun.shadow.camera.far = 20;
-        this.sun.shadow.mapSize.set(1500,1500);
+        this.sun.shadow.camera.right = 7;
+        this.sun.shadow.camera.left = -4;
+        this.sun.shadow.camera.top = 5;
+        this.sun.shadow.camera.bottom = -3.5;
+        this.sun.shadow.mapSize.set(1500,1500); // resolution
         this.sun.shadow.normalBias = 0.1;
         this.sun.position.set(-1, 15, 7);
 
         // plane under the room
-        const geometry = new THREE.BoxGeometry(1000, 1000, 1000);
+        const geometry = new THREE.BoxGeometry(500, 500, 500);
         const material = new THREE.MeshStandardMaterial({
             color: 0xffffff,
             side: THREE.BackSide
         });
-        const plane = new THREE.Mesh(geometry, material);
-        plane.position.y = 500;
-        plane.receiveShadow = true;
-        plane.castShadow = true;
+        const box = new THREE.Mesh(geometry, material);
+        box.position.y = 250;
+        box.receiveShadow = true;
         
         scene.fog = new THREE.Fog(colors.day.environment.fog, 20, 100); // fog
         // add everythong to scene
-        scene.add(plane);
+        scene.add(box);
         scene.add(this.sun);
         scene.add(this.hlight);
 
