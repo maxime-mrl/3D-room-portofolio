@@ -107,17 +107,24 @@ body {
 .popup {
   position: fixed;
   z-index: 10;
-  top: 10%;
+  top: -10%;
   left: 50%;
   transform: translateX(-50%);
   padding: 1em;
   background-color: rgb(var(--beige));
   font-size: 1.5rem;
   border-radius: 0.5em;
-  display: none;
+  box-shadow: 2px 2px 3px rgba(30, 30, 30, 0.5);
+  transition: 200ms top ease-out;
 }
 .popup.active {
-  display: block;
+  top: 10%;
+}
+.popup.fail {
+  border: solid 2px red;
+}
+.popup.success {
+  border: solid 2px green;
 }
 
 /* ---------------------------- LOADING ANIMATION --------------------------- */
@@ -249,7 +256,7 @@ footer {
           user-select: none;
 }
 
-.fade-out {
+.fade-out { /* for mobile color on the side to show movement possibilities */
   position: fixed;
   z-index: 1;
   top: 0;
@@ -301,7 +308,7 @@ footer {
   justify-content: center;
   flex-direction: column;
 }
-#contact-form .succes {
+#contact-form .success {
   border: solid 2px green;
 }
 #contact-form .fail {
@@ -322,13 +329,6 @@ footer {
   background-color: rgb(var(--beige));
   border: 1px solid rgb(var(--text));
   border-radius: 0.5em;
-}
-
-.popup.fail {
-  border: solid 2px red;
-}
-.popup.succes {
-  border: solid 2px green;
 }
 
 /* -------------------------------- CAROUSSEL -------------------------------- */

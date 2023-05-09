@@ -40,13 +40,19 @@ export class Form {
             displayPopup("fail", ":/ At least one wrong entry");
             return;
         }
-        displayPopup("sucess", "Success !");
+        displayPopup("success", "Success !");
+        // revert form back to its original state
+        this.inputs.forEach(({ elem:input }) => {
+            input.value = "";
+            input.className = "";
+        }); // clear input entries
+        closeModal(); // close the modal
     }
 
     check = (regEx, input, errorTxt) => { // check if one input is valid
         if (regEx.test(input.value)) { // test regex
             // succes
-            input.className = "sucess";
+            input.className = "success";
             input.setAttribute("placeHolder", input.originalPlaceholder);
             return true;
         }

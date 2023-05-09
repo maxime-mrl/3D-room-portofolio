@@ -110,16 +110,23 @@ body {
 .popup {
     position: fixed;
     z-index: 10;
-    top: 10%;
+    top: -10%;
     left: 50%;
     transform: translateX(-50%);
     padding: 1em;
     background-color: rgb(var(--beige));
     font-size: $medium-text-size;
     border-radius: $radius;
-    display: none;
+    box-shadow: 2px 2px 3px fade-out($caroussel-black, 0.5);
+    transition: 200ms top ease-out;
     &.active {
-        display: block;
+        top: 10%;
+    }
+    &.fail {
+        border: solid 2px red;
+    }
+    &.success {
+        border: solid 2px green;
     }
 }
 
@@ -244,7 +251,7 @@ footer {
     }
 }
 
-.fade-out {
+.fade-out { /* for mobile color on the side to show movement possibilities */
     position: fixed;
     z-index: 1;
     top: 0;
@@ -290,7 +297,7 @@ footer {
         justify-content: center;
         flex-direction: column;
     }
-    .succes {
+    .success {
         border: solid 2px green;
     }
     .fail {
@@ -311,14 +318,6 @@ footer {
     }
 }
 
-.popup {
-    &.fail {
-        border: solid 2px red;
-    }
-    &.succes {
-        border: solid 2px green;
-    }
-}
 
 /* -------------------------------- CAROUSSEL -------------------------------- */
 .projects-content {
