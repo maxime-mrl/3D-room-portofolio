@@ -48,16 +48,20 @@ export default class Loader { // load every assets for the scene then initialize
         video.loop = true;
 
         video.play()
+        .then(() => playVideo(this)) // play the video when loaded
         .catch(error => { // catch any errors because one can appen randomly but dosen't matter so filter it -- https://developer.chrome.com/blog/play-request-was-interrupted/)
+            playVideo(this); // try laying video regardless of the error
             const errorTxt = String(error);
             if (errorTxt.includes("https://goo.gl/LdLk22")) return;
             console.error(error); // when the error isn't recognized log it
         });
-        // video html to three texture
-        const videoTexture = new THREE.VideoTexture(video);
-        videoTexture.encoding = THREE.sRGBEncoding;
+        function playVideo(that) { // that allow to use the real this from the class (this inside function won't work)
+            // video html to three texture
+            const videoTexture = new THREE.VideoTexture(video);
+            videoTexture.encoding = THREE.sRGBEncoding;
 
-        this.oneLoaded(asset.name, videoTexture);
+            that.oneLoaded(asset.name, videoTexture);
+        }
     }
 
     loadGltf = (asset) => { // load gltf model (the scene)
