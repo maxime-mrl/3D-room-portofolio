@@ -1,4 +1,5 @@
 const popup = document.querySelector(".popup");
+const mobileAgents = [ /android/i, /webos/i, /iphone/i, /ipad/i, /ipod/i, /blackberry/i, /windows phone/i ];
 
 window.toRadian = (angle) => { // convert degree to radian
     return angle * Math.PI/180;
@@ -16,7 +17,6 @@ window.setColors = (to) => { // set css color themes
     document.documentElement.style.setProperty('--beige', colors[to].css.beige);
     document.documentElement.style.setProperty('--text', colors[to].css.text);
 }
-
 
 window.displayPopup = (customClass, message) => { // display popup (error or success) with custom message
     popup.innerHTML = message;

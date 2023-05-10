@@ -447,7 +447,7 @@ footer {
 /* -------------------------------------------------------------------------- */
 /*                                   DESKTOP                                  */
 /* -------------------------------------------------------------------------- */
-@media screen and (min-aspect-ratio: 4/5) { /* since the caroussel has fix aspect ration with video, displaying should be depending on aspect ratio */
+@media screen and (min-aspect-ratio: 1) { /* since the caroussel has fix aspect ration with video, displaying should be depending on aspect ratio */
     .fade-out {
         display: none;
     }
