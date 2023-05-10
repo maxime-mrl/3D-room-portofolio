@@ -65,9 +65,15 @@ body {
 .h1 {
     font-family: "Digital geometric";
     font-size: 3rem;
+    &.smaller {
+        font-size: 2rem;
+    }
 }
 .h2 {
     font-size: 2rem;
+}
+.h3 {
+    font-size: 1.5rem;
 }
 
 .modal {
@@ -132,6 +138,24 @@ body {
     }
     &.success {
         border: solid 2px green;
+    }
+}
+
+.btn {
+    padding: 0.7em 2em;
+    font-size: $medium-text-size;
+    font-size: min(6vw, $medium-text-size);
+    background-color: rgba(var(--text), 0.1);
+    border: 1px solid rgba(var(--text), 0.5);
+    color: rgb(var(--text));
+    border-radius: $radius;
+    transition: 500ms;
+    &:hover {
+        background-color: rgba(var(--text), 0.5);
+        border: 1px solid rgba(var(--text));
+        color: rgb(var(--beige));
+        letter-spacing: 0.002em;
+        transform: scale(1.05);
     }
 }
 
@@ -273,6 +297,23 @@ footer {
     }
 }
 
+/* ------------------------------ MOBILE ALERT ------------------------------ */
+.mobile-alert {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    max-width: 750px;
+    height: 100vh;
+    height: 100dvh;
+    max-height: 32rem;
+    text-align: center;
+    padding: 0 1em;
+    strong {
+        text-decoration: underline;
+    }
+}
+
 /* --------------------------------- CONTACT -------------------------------- */
 #contact .h1 {
     text-align: center;
@@ -370,15 +411,6 @@ footer {
         align-items: center;
         & > * { max-height: 3em; }
     }
-    .btn {
-        padding: 0.7em 2em;
-        font-size: $medium-text-size;
-        font-size: min(6vw, $medium-text-size);
-        background-color: rgba(var(--text), 0.1);
-        border: 1px solid rgba(var(--text), 0.5);
-        color: rgb(var(--text));
-        border-radius: $radius;
-    }
     .subtitle {
         font-size: 3rem;
         font-size: min(8vw, 3rem);
@@ -474,7 +506,7 @@ footer {
             }
         }
     }
-    
+
     .caroussel-content {
         .text {
             height: 100%;
@@ -502,13 +534,10 @@ footer {
                 background-color: fade-out($caroussel-black, 0.5);
                 border-color: fade-out($caroussel-black, 0.3);
             }
-            transition: 500ms;
             &:hover {
                 color: $caroussel-black;
                 background-color: fade-out($caroussel-white, 0.5);
                 border: 1px solid $caroussel-black;
-                transform: scale(1.05);
-                letter-spacing: 0.002em;
             }
         }
     }

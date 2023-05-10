@@ -61,9 +61,16 @@ body {
   font-family: "Digital geometric";
   font-size: 3rem;
 }
+.h1.smaller {
+  font-size: 2rem;
+}
 
 .h2 {
   font-size: 2rem;
+}
+
+.h3 {
+  font-size: 1.5rem;
 }
 
 .modal {
@@ -129,6 +136,24 @@ body {
 }
 .popup.success {
   border: solid 2px green;
+}
+
+.btn {
+  padding: 0.7em 2em;
+  font-size: 1.5rem;
+  font-size: min(6vw, 1.5rem);
+  background-color: rgba(var(--text), 0.1);
+  border: 1px solid rgba(var(--text), 0.5);
+  color: rgb(var(--text));
+  border-radius: 0.5em;
+  transition: 500ms;
+}
+.btn:hover {
+  background-color: rgba(var(--text), 0.5);
+  border: 1px solid rgba(var(--text));
+  color: rgb(var(--beige));
+  letter-spacing: 0.002em;
+  transform: scale(1.05);
 }
 
 /* ---------------------------- LOADING ANIMATION --------------------------- */
@@ -277,6 +302,23 @@ footer {
   background: linear-gradient(-90deg, rgba(var(--beige), 0.8) 0%, rgba(var(--beige), 0) 100%);
 }
 
+/* ------------------------------ MOBILE ALERT ------------------------------ */
+.mobile-alert {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  max-width: 750px;
+  height: 100vh;
+  height: 100dvh;
+  max-height: 32rem;
+  text-align: center;
+  padding: 0 1em;
+}
+.mobile-alert strong {
+  text-decoration: underline;
+}
+
 /* --------------------------------- CONTACT -------------------------------- */
 #contact .h1 {
   text-align: center;
@@ -383,15 +425,6 @@ footer {
 }
 .caroussel-content .text > * {
   max-height: 3em;
-}
-.caroussel-content .btn {
-  padding: 0.7em 2em;
-  font-size: 1.5rem;
-  font-size: min(6vw, 1.5rem);
-  background-color: rgba(var(--text), 0.1);
-  border: 1px solid rgba(var(--text), 0.5);
-  color: rgb(var(--text));
-  border-radius: 0.5em;
 }
 .caroussel-content .subtitle {
   font-size: 3rem;
@@ -516,7 +549,6 @@ footer {
     color: #efefef;
     background-color: rgba(239, 239, 239, 0.2);
     border: 1px solid rgba(239, 239, 239, 0.4);
-    transition: 500ms;
   }
   .caroussel-content .btn.black {
     background-color: rgba(30, 30, 30, 0.5);
@@ -526,8 +558,6 @@ footer {
     color: #1e1e1e;
     background-color: rgba(239, 239, 239, 0.5);
     border: 1px solid #1e1e1e;
-    transform: scale(1.05);
-    letter-spacing: 0.002em;
   }
   .subtitle.black {
     color: #1e1e1e;

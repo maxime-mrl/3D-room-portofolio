@@ -33,7 +33,6 @@ let activeModal = ""; // oppened modal
 
 window.caroussel = new Caroussel();
 window.contactForm = new Form();
-init3D() // create 3D world
 
 /* -------------------------------------------------------------------------- */
 /*                        DOM INTERACTION FROM 3D SCENE                       */
@@ -62,3 +61,7 @@ function modalClick(e) { // listener function for click -- check if click is not
     if (activeModal != e.target && e.target.parentNode.className != "close-modal") return; // if click outside of content or in the close btn continue -- close btn has an element inside so the click register on it -> go back to parent
     closeModal();
 }
+init3D() // create 3D world
+setTimeout(() => {
+    openModal("mobile-alert")
+}, 3000);

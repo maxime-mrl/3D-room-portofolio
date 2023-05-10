@@ -4,7 +4,7 @@ export default class Resizer { // set render and camera size / aspect ratio to b
         this.camera = camera;
         window.addEventListener("resize", this.resize);
         window.addEventListener("orientationchange", this.resize); // on iphone orientation change don't trigger resize listener so listen for orientation
-        this.resize();
+        this.resize()
     }
     resize = () => { // arrow function call because with normal call this is not defined sometimes apparently (valable for all classes) https://stackoverflow.com/questions/62735307/node-js-class-constructor-variables-undefined
         // update size aspect ratio etc to matches viewport
@@ -34,6 +34,6 @@ export default class Resizer { // set render and camera size / aspect ratio to b
         } // user agent check for mobile based from https://www.tutorialspoint.com/How-to-detect-a-mobile-device-with-JavaScript
         // at this point we now that the user is on some kind of mobile device in portait
         // so we should now auto hover caroussel to make it readable on mobile type (better to do that than nothing) and notify user that it's better in portrait mode
-        caroussel.container.setAttribute('auto-hover', "")
+        caroussel.container.setAttribute('auto-hover', "");
     }
 }
