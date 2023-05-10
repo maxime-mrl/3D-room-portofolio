@@ -1,6 +1,7 @@
 const formElems = document.querySelectorAll("#contact-form input, #contact-form textarea");
 const slides = document.querySelectorAll(".caroussel-content > *");
 const autoDefil = document.querySelector(".caroussel .auto");
+const carousselContainer = document.querySelector(".caroussel");
 let progress = document.querySelector(".caroussel .progress");
 
 export class Form {
@@ -66,6 +67,7 @@ export class Form {
 
 export class Caroussel {
     constructor() {
+        this.container = carousselContainer; // to be abble to acces from resize.js
         this.slides = slides; // to be abble to acces from index.js
         slides.forEach((e, i) => { // add dot depending on slide number
             const dot = document.createElement("div");
@@ -81,6 +83,7 @@ export class Caroussel {
     }
 
     changeSlide = (to) => {
+        if (!this.oppened) return; // don't change slide if caroussel closed
         // hide last slide
         slides[this.actualSlide].className = "hidden-slide";
         slides[this.actualSlide].querySelector("video").pause();
@@ -119,5 +122,15 @@ export class Caroussel {
         clearInterval(this.autoSlideInterval);
         this.autoSlideInterval = false;
         autoDefil.setAttribute("data-state", "pause"); // change datastate of play/pause container to update CSS
+    }
+
+    oppen = () => { // handle everything necessary on oppening of caroussel modal
+        slides[this.actualSlide].querySelector("video").play();
+        this.oppened = true;
+    }
+
+    close = () => {
+        this.slides[this.actualSlide].querySelector("video").pause(); // pause video to save perfs
+        this.oppened = false;
     }
 }

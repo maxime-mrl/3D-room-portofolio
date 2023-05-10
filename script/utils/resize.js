@@ -17,15 +17,23 @@ export default class Resizer { // set render and camera size / aspect ratio to b
         this.renderer.setPixelRatio(pixelRatio);
         this.camera.aspect = aspect;
         this.camera.updateProjectionMatrix();
-        this.checkAspectRatio()
+        this.checkAspectRatio();
     }
     
     checkAspectRatio = () => {
+        const mobileAgents = [ /android/i, /webos/i, /iphone/i, /ipad/i, /ipod/i, /blackberry/i, /windows phone/i ];
         const aspect = window.innerWidth/window.innerHeight;
         const userAgent = navigator.userAgent;
-        if (aspect < 1) return // is in portrait => do nothing
-        if (!mobileAgents.find(agent => userAgent.match(agent))) return // user agent check for mobile based from https://www.tutorialspoint.com/How-to-detect-a-mobile-device-with-JavaScript
+        if (aspect < 1) { // is in portrait
+            caroussel.container.removeAttribute('auto-hover')
+            return 
+        }
+        if (!mobileAgents.find(agent => userAgent.match(agent))) {
+            caroussel.container.removeAttribute('auto-hover')
+            return
+        } // user agent check for mobile based from https://www.tutorialspoint.com/How-to-detect-a-mobile-device-with-JavaScript
         // at this point we now that the user is on some kind of mobile device in portait
         // so we should now auto hover caroussel to make it readable on mobile type (better to do that than nothing) and notify user that it's better in portrait mode
+        caroussel.container.setAttribute('auto-hover', "")
     }
 }

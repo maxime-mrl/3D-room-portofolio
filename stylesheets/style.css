@@ -66,28 +66,32 @@ body {
   font-size: 2rem;
 }
 
-.modal-hidden {
-  display: none;
-}
-
-.modal-active {
+.modal {
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
   position: fixed;
-  z-index: 10;
+  display: flex;
   width: 100%;
   height: 100vh;
   height: 100dvh;
-  display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgb(var(--beige), 0.5);
   -webkit-backdrop-filter: blur(5px);
           backdrop-filter: blur(5px);
 }
-.modal-active .close-modal {
+.modal .close-modal {
   position: fixed;
   top: 0.5em;
   left: 0.5em;
   font-size: 1.5rem;
+}
+
+.modal-active {
+  z-index: 10;
+  pointer-events: all;
+  opacity: 1;
 }
 
 .hidden { /* for all element that need to be present in dom but invisible for accessibility */
@@ -478,11 +482,17 @@ footer {
   .caroussel {
     margin: 0;
   }
-  .caroussel:hover .caroussel-content video, .caroussel:hover .caroussel-content img {
+  .caroussel:hover:not([auto-hover]) .caroussel-content video, .caroussel:hover:not([auto-hover]) .caroussel-content img {
     transform: scale(1.2);
     filter: blur(7px);
   }
-  .caroussel:hover .caroussel-content .text {
+  .caroussel:hover:not([auto-hover]) .caroussel-content .text {
+    opacity: 1;
+  }
+  .caroussel[auto-hover] .caroussel-content video, .caroussel[auto-hover] .caroussel-content img {
+    filter: blur(5px);
+  }
+  .caroussel[auto-hover] .caroussel-content .text {
     opacity: 1;
   }
   .caroussel-content .text {

@@ -1,5 +1,4 @@
 const popup = document.querySelector(".popup");
-const mobileAgents = [ /android/i, /webos/i, /iphone/i, /ipad/i, /ipod/i, /blackberry/i, /windows phone/i ];
 
 window.toRadian = (angle) => { // convert degree to radian
     return angle * Math.PI/180;

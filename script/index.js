@@ -42,21 +42,19 @@ window.openModal = targetId => { // open modal
     document.body.style.cursor = "initial";
     if (activeModal) closeModal();
     activeModal = document.getElementById(targetId);
-    activeModal.className = "modal-active";
+    activeModal.className = "modal modal-active";
     cancelAnimationFrame(world.frameRequest); // stop updating render to save perf
     activeModal.addEventListener("click", modalClick);
-    if (targetId == "projects") caroussel.slides[caroussel.actualSlide].querySelector("video").play(); // play video caroussel video
+    if (targetId == "projects") caroussel.oppen() // play video caroussel video
 }
 
 window.closeModal = () => { // close modal opened
     if (activeModal == "") return;
     document.removeEventListener("click", modalClick);
-    activeModal.className = "modal-hidden";
+    activeModal.className = "modal";
     activeModal = "";
     world.update();
-    
-    caroussel.slides[caroussel.actualSlide].querySelector("video").pause(); // pause video to save perfs
-    caroussel.pause(); // pause caroussel defil to save perf
+    caroussel.close()
 }
 
 function modalClick(e) { // listener function for click -- check if click is not inside modal content close it
