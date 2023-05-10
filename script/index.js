@@ -38,8 +38,8 @@ window.contactForm = new Form();
 /*                        DOM INTERACTION FROM 3D SCENE                       */
 /* -------------------------------------------------------------------------- */
 window.openModal = targetId => { // open modal
-    document.body.style.cursor = "initial";
     if (activeModal) closeModal();
+    document.body.style.cursor = "initial";
     activeModal = document.getElementById(targetId);
     activeModal.className = "modal modal-active";
     cancelAnimationFrame(world.frameRequest); // stop updating render to save perf

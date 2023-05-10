@@ -76,32 +76,37 @@ body {
     font-size: 1.5rem;
 }
 
-.modal {
+.modal { // display none created a weird glitch for caroussel oppening so hide it without display none
     z-index: -1;
     pointer-events: none;
     opacity: 0;
+    visibility: hidden;
+    height: 0;
+    width: 0;
+    overflow: hidden;
 
     position: fixed;
     display: flex;
-    width: 100%;
-    height: 100vh;
-    height: 100dvh;
     justify-content: center;
     align-items: center;
     background-color: rgb(var(--beige), 0.5);
     backdrop-filter: blur(5px);
-    .close-modal {
-        position: fixed;
-        top: 0.5em;
-        left: 0.5em;
-        font-size: 1.5rem;
-    }
 }
 
 .modal-active {
     z-index: 10;
     pointer-events: all;
     opacity: 1;
+    visibility: visible;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    .close-modal {
+        position: fixed;
+        top: 0.5em;
+        left: 0.5em;
+        font-size: 1.5rem;
+    }
 }
 
 .hidden { /* for all element that need to be present in dom but invisible for accessibility */

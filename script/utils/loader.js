@@ -22,7 +22,7 @@ export default class Loader { // load every assets for the scene then initialize
     }
 
     load = () => { // browse all asset to load them according to their type
-        console.log("%cLoading assets...", "color: #F5853F; font-weight: bold");
+        console.log("%cLoading...", "color: #F5853F; font-weight: bold");
         assets.forEach(asset => {
             switch (asset.type) {
                 case "gltf":
@@ -34,8 +34,6 @@ export default class Loader { // load every assets for the scene then initialize
                 case "audio":
                     this.loadAudio(asset);
                     break;
-                default:
-                    console.error(`Unknown asset type ${asset.type} -- asset "${asset.name}" not loaded`);
             }
         })
     }

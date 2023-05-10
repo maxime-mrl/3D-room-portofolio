@@ -22,7 +22,7 @@ export default class Resizer { // set render and camera size / aspect ratio to b
         this.aspectBufferTimeout = setTimeout(this.checkAspectRatio, 100)
     }
     
-    checkAspectRatio = () => {
+    checkAspectRatio = () => { // check what aspect ratio and device type for the best experience
         const mobileAgents = [ /android/i, /webos/i, /iphone/i, /ipad/i, /ipod/i, /blackberry/i, /windows phone/i ];
         const aspect = window.innerWidth/window.innerHeight;
         const userAgent = navigator.userAgent;
