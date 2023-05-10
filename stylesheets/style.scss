@@ -453,10 +453,9 @@ footer {
 /*                                   DESKTOP                                  */
 /* -------------------------------------------------------------------------- */
 @media screen and (min-aspect-ratio: 1) { /* since the caroussel has fix aspect ration with video, displaying should be depending on aspect ratio */
-    .fade-out {
-        display: none;
-    }
-    #card-projects { grid-template-rows: 1fr 3.5fr; }
+    .fade-out { display: none }
+    #card-projects { grid-template-rows: 1fr 3.5fr }
+
     .caroussel {
         margin: 0;
         &:hover:not([auto-hover]) .caroussel-content {
@@ -475,42 +474,46 @@ footer {
             }
         }
     }
-    .caroussel-content .text {
-        height: 100%;
-        margin-top: 0;
-        padding-bottom: 2em;
-        justify-content: center;
-        gap: 10vh;
-        color: $caroussel-white;
-        background-color: fade-out($caroussel-black, 0.6);
-        border-radius: $radius;
-        filter: drop-shadow(5px 5px 5px $caroussel-black);
-        &.black-txt {
-            background-color: fade-out($caroussel-white, 0.6);
-            filter: drop-shadow(5px 5px 5px fade-out($caroussel-white, 0.4));
+    
+    .caroussel-content {
+        .text {
+            height: 100%;
+            margin-top: 0;
+            padding-bottom: 2em;
+            justify-content: center;
+            gap: 10vh;
+            color: $caroussel-white;
+            background-color: fade-out($caroussel-black, 0.6);
+            border-radius: $radius;
+            filter: drop-shadow(5px 5px 5px $caroussel-black);
+            &.black-txt {
+                background-color: fade-out($caroussel-white, 0.6);
+                filter: drop-shadow(5px 5px 5px fade-out($caroussel-white, 0.4));
+            }
+            opacity: 0;
+            transition: opacity 500ms ease-in-out;
         }
-        opacity: 0;
-        transition: opacity 500ms ease-in-out;
+
+        .btn {
+            color: $caroussel-white;
+            background-color: fade-out($caroussel-white, 0.8);
+            border: 1px solid fade-out($caroussel-white, 0.6);
+            &.black {
+                background-color: fade-out($caroussel-black, 0.5);
+                border-color: fade-out($caroussel-black, 0.3);
+            }
+            transition: 500ms;
+            &:hover {
+                color: $caroussel-black;
+                background-color: fade-out($caroussel-white, 0.5);
+                border: 1px solid $caroussel-black;
+                transform: scale(1.05);
+                letter-spacing: 0.002em;
+            }
+        }
     }
     .subtitle.black {
         color: $caroussel-black;
-    }
-    .caroussel-content .btn {
-        color: $caroussel-white;
-        background-color: fade-out($caroussel-white, 0.8);
-        border: 1px solid fade-out($caroussel-white, 0.6);
-        &.black {
-            background-color: fade-out($caroussel-black, 0.5);
-            border-color: fade-out($caroussel-black, 0.3);
-        }
-        transition: 500ms;
-        &:hover {
-            color: $caroussel-black;
-            background-color: fade-out($caroussel-white, 0.5);
-            border: 1px solid $caroussel-black;
-            transform: scale(1.05);
-            letter-spacing: 0.002em;
-        }
     }
 }
 

@@ -512,9 +512,6 @@ footer {
     background-color: rgba(239, 239, 239, 0.4);
     filter: drop-shadow(5px 5px 5px rgba(239, 239, 239, 0.6));
   }
-  .subtitle.black {
-    color: #1e1e1e;
-  }
   .caroussel-content .btn {
     color: #efefef;
     background-color: rgba(239, 239, 239, 0.2);
@@ -531,6 +528,9 @@ footer {
     border: 1px solid #1e1e1e;
     transform: scale(1.05);
     letter-spacing: 0.002em;
+  }
+  .subtitle.black {
+    color: #1e1e1e;
   }
 }
 /* -------------------------------------------------------------------------- */
