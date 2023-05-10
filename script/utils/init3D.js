@@ -4,7 +4,6 @@ window.THREE = THREE; // Allow three.js to be accessible everywhere
 import { OrbitControls } from "../three/examples/jsm/controls/OrbitControls.js";
 // HOMEMADE
 import Loader from "./loader.js";
-import Resizer from "./resize.js";
 
 const canvas = document.querySelector(".render-container > canvas");
 const loadingOverlay = document.querySelector(".loader");
@@ -24,7 +23,6 @@ export default () => { // create every element necessary for threeJS (scene, cam
     renderer.shadowMap.type = THREE.PCFShadowMap;
 
     new Loader(loadingOverlay).load();
-    new Resizer(renderer, camera);
 
     const controls = new OrbitControls(camera, canvas);
 

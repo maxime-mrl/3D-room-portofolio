@@ -1,5 +1,6 @@
 import { InteractionManager } from './three.interactive/build/three.interactive.js';
 import Environment from './utils/environment.js';
+import Resizer from "./utils/resize.js";
 
 const animations = {};
 const interactions = [];
@@ -21,6 +22,7 @@ export default class World { // World is everithing regarding 3D world after ini
         setTimeout(() => { // add "hint" if user dosen't interact
             if (!interacted) this.Animate("hint-anim", 0.1, "forward")
         }, 8000)
+        new Resizer(renderer, camera);
     }
 
     setRoom = () => { // add room to scene + set up

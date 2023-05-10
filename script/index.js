@@ -62,6 +62,3 @@ function modalClick(e) { // listener function for click -- check if click is not
     closeModal();
 }
 init3D() // create 3D world
-setTimeout(() => {
-    openModal("mobile-alert")
-}, 3000);
