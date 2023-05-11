@@ -37,11 +37,13 @@ export default () => { // create every element necessary for threeJS (scene, cam
     // zoom limit
     controls.minDistance = 6;
     controls.maxDistance = 10;
-
+    // set camera
     camera.position.set(8,6,8);
     controls.update();
 
     // select themes for html elements depending of day
     const hours = new Date().getHours();
     if (hours > 19 || hours < 7) setColors("night");
+    // return controls to edit them if necessary
+    return controls;
 }

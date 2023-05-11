@@ -105,14 +105,14 @@ export class Caroussel {
         slides[this.actualSlide].className = "hidden-slide"; // hide last image
         slides[this.actualSlide].querySelector("video").pause();
         this.actualSlide = to;
-        this.changeSlide(0)
+        this.changeSlide(0);
     }
     
     play = () => {
         if (this.autoSlideInterval) return pause();
         this.autoSlideInterval = setInterval(() => {
             if (document.querySelector(".caroussel .text:hover")) return;
-            this.changeSlide(1)
+            this.changeSlide(1);
         }, 6000);
         autoDefil.setAttribute("data-state", "play"); // change datastate of play/pause container to update CSS
     }

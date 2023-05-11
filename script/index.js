@@ -46,7 +46,7 @@ window.openModal = targetId => { // open modal
     activeModal.className = "modal modal-active";
     cancelAnimationFrame(world.frameRequest); // stop updating render to save perf
     activeModal.addEventListener("click", modalClick);
-    if (targetId == "projects") caroussel.oppen() // play video caroussel video
+    if (targetId == "projects") caroussel.oppen(); // play video caroussel video
 }
 
 window.closeModal = () => { // close modal opened
@@ -55,7 +55,7 @@ window.closeModal = () => { // close modal opened
     activeModal.className = "modal";
     activeModal = "";
     world.update();
-    caroussel.close()
+    caroussel.close();
 }
 
 function modalClick(e) { // listener function for click -- check if click is not inside modal content close it
@@ -63,4 +63,4 @@ function modalClick(e) { // listener function for click -- check if click is not
     if (activeModal != e.target && e.target.parentNode.className != "close-modal") return; // if click outside of content or in the close btn continue -- close btn has an element inside so the click register on it -> go back to parent
     closeModal();
 }
-init3D() // create 3D world
+export const controls = init3D(); // create 3D world and export controls to be used in resize.js

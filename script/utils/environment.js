@@ -42,21 +42,21 @@ export default class Environment { // create every environment elements (ambiant
     }
 
     swicthTheme = () => { // update color theme
-        themeBtn.parentNode.classList.toggle("night")
+        themeBtn.parentNode.classList.toggle("night");
         if (document.querySelector(".night")) {
             this.hlight.intensity = colors.night.environment.light[1];
             this.sun.intensity = colors.night.environment.sun[1];
             this.hlight.color.setHex(colors.night.environment.light[0]);
             this.sun.color.setHex(colors.night.environment.sun[0]);
             scene.fog = new THREE.Fog(colors.night.environment.fog, 20, 100);
-            setColors("night")
+            setColors("night");
         } else {
             this.hlight.intensity = colors.day.environment.light[1];
             this.sun.intensity = colors.day.environment.sun[1];
             this.hlight.color.setHex(colors.day.environment.light[0]);
             this.sun.color.setHex(colors.day.environment.sun[0]);
             scene.fog = new THREE.Fog(colors.day.environment.fog, 20, 100);
-            setColors("day")
+            setColors("day");
         }
     }
 

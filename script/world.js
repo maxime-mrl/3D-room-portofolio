@@ -20,7 +20,7 @@ export default class World { // World is everithing regarding 3D world after ini
         this.timer = new THREE.Clock(); // create Three clock to get delta time
         this.update();
         setTimeout(() => { // add "hint" if user dosen't interact
-            if (!interacted) this.Animate("hint-anim", 0.1, "forward")
+            if (!interacted) this.Animate("hint-anim", 0.1, "forward");
         }, 8000)
         new Resizer(renderer, camera);
     }
@@ -59,8 +59,8 @@ export default class World { // World is everithing regarding 3D world after ini
         this.setInteractions("letter", "mouseover", () => this.Animate("letter-top-anim", 1, "forward"));
         this.setInteractions("letter", "mouseout", () => this.Animate("letter-top-anim", 1, "backward"));
         // add animations
-        this.Animate("letter-box-anim", 5, "infinite")
-        this.Animate("room-entry-anim", 5, "infinite")
+        this.Animate("letter-box-anim", 5, "infinite");
+        this.Animate("room-entry-anim", 5, "infinite");
     };
 
     setInteractions = (target, type, action) => { // create interaction for elements
@@ -126,7 +126,7 @@ export default class World { // World is everithing regarding 3D world after ini
             setTimeout(() => {
                 animations[animation].reset();
                 animations[animation].paused = true;
-            }, speed*1000 + 5000)
+            }, speed*1000 + 5000);
         }
     }
 
