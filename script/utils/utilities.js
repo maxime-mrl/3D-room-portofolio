@@ -15,6 +15,7 @@ window.setColors = (to) => { // set css color themes
     document.documentElement.style.setProperty('--green', colors[to].css.green);
     document.documentElement.style.setProperty('--beige', colors[to].css.beige);
     document.documentElement.style.setProperty('--text', colors[to].css.text);
+    document.documentElement.style.setProperty('--white', colors[to].css.white);
 }
 
 window.displayPopup = (customClass, message) => { // display popup (error or success) with custom message

@@ -13,6 +13,7 @@ window.colors = {
             green: "176, 215, 181",
             beige: "223, 219, 212",
             text: "30, 30, 30",
+            white: "232, 231, 225",
         }
     },
     night: {
@@ -25,6 +26,7 @@ window.colors = {
             green: "36, 76, 64",
             beige: "73, 71, 97",
             text: "239, 241, 237",
+            white: "91, 99, 120",
         }
     },
 };

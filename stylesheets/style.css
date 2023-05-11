@@ -10,6 +10,7 @@
   --green: 176, 215, 181;
   --beige: 223, 219, 212;
   --text: 30, 30, 30;
+  --white: 232, 231, 225 ;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -52,6 +53,10 @@ button {
 /* -------------------------------------------------------------------------- */
 /*                                   GENERAL                                  */
 /* -------------------------------------------------------------------------- */
+html {
+  background-color: rgb(var(--white)); /* on iphone withe notch, landscape view dosen't take the whole width to avoid cropping important content, so to make it a bit more natural, apply the same color as ground to html so the white space are less visible */
+}
+
 body {
   font-family: "Varela Round";
   color: rgb(var(--text));
