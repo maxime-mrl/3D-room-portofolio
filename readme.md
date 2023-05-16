@@ -14,3 +14,5 @@ This repository include every necessary files, so you just have to clone.
 **/!\ LIBRAIRIES FILE HAVE BEEN MODIFIED SO THE IMPORT WORK WITHOUT IMPORTMAP /!\\**
 
 => you **MUST** use the given librairies **OR** manually edit all import used (check that all import used are in absolute path and don't forget to also edit imported file)
+
+## website: [maxime-morel.xyz](https://maxime-morel.xyz)
