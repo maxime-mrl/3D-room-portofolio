@@ -307,6 +307,10 @@ footer {
   height: 100vh;
   height: 100dvh;
   width: 10vw;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  pointer-events: none;
 }
 .fade-out.left {
   left: 0;

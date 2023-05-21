@@ -38,9 +38,9 @@ export default class World { // World is everithing regarding 3D world after ini
         const deskLight = this.environment.addSpotLight(this.room["desk_lamp"].position, this.room.letter);
         const bedLight = this.environment.addPointLight(this.room["lamp"].position);
         // add Interactions
-        this.setInteractions("screen-video", "click", () => openModal("projects"));
-        this.setInteractions("letter", "click", () => openModal("contact"));
-        this.setInteractions("letter-box", "click", () => openModal("contact"));
+        this.setInteractions("screen-video", "mousedown", () => openModal("projects"));
+        this.setInteractions("letter", "mousedown", () => openModal("contact"));
+        this.setInteractions("letter-box", "mousedown", () => openModal("contact"));
 
         this.setInteractions("lamp", "click", () => this.environment.toggleLight(bedLight));
         this.setInteractions("desk_lamp", "click", () => this.environment.toggleLight(deskLight));

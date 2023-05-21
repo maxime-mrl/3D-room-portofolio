@@ -299,6 +299,8 @@ footer {
     height: 100vh;
     height: 100dvh;
     width: 10vw;
+    user-select: none;
+    pointer-events: none;
     &.left {
         left: 0;
         background: linear-gradient(90deg, rgba(var(--beige), 0.8) 0%, rgba(var(--beige), 0) 100%);
