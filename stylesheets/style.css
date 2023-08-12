@@ -343,77 +343,62 @@ footer {
   text-align: center;
 }
 
-#contact-form {
-  overflow: auto;
+.contact {
+  display: grid;
+  gap: 1em;
   width: 35rem;
   max-width: 95vw;
   max-height: 80vh;
   margin: 3vh;
-  padding: 1em;
-  display: grid;
-  grid-template-rows: repeat(3, minmax(3.8em, 1fr)) minmax(5rem, 3fr) minmax(1.8em, 0.6fr);
-  gap: 1.5vh;
+  padding: 2em 1em;
   color: rgb(var(--text));
   background-color: rgb(var(--beige));
   border: 1px solid rgba(var(--text), 0.5);
   border-radius: 0.5em;
 }
-#contact-form * {
+.contact .space {
+  width: 80%;
+  margin: 0em auto 3em;
+  order: 0;
+}
+.contact .space::after {
+  content: "";
   display: block;
   width: 100%;
+  border-bottom: dashed 2px rgb(var(--text));
 }
-#contact-form *::-moz-placeholder {
-  color: rgba(var(--text), 0.5);
-}
-#contact-form *::placeholder {
-  color: rgba(var(--text), 0.5);
-}
-#contact-form > * {
+.contact > * {
   height: 100%;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+  text-align: center;
+  row-gap: 0.8em;
 }
-#contact-form .success {
-  border: solid 2px green;
-}
-#contact-form .fail {
-  border: solid 2px red;
-}
-#contact-form .fail::-moz-placeholder {
-  color: darkred;
-}
-#contact-form .fail::placeholder {
-  color: darkred;
-}
-#contact-form label {
-  font-weight: 500;
-  margin-bottom: 0.3em;
-}
-#contact-form input, #contact-form button, #contact-form textarea {
-  padding: 0.5em 1em;
-  background-color: rgb(var(--beige));
-  border: 1px solid rgb(var(--text));
-  border-radius: 0.5em;
+.contact a {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 /* -------------------------------- CAROUSSEL -------------------------------- */
 .projects-content {
-  width: 90%;
-  max-width: 1000px;
+  width: 98%;
   max-height: 100vh;
   max-height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 5vh;
+  text-align: center;
 }
 
 .caroussel {
   position: relative;
   width: 100%;
+  max-height: 80vh;
   max-height: 80dvh;
+  max-width: 128vh;
   margin: 4rem 0 7rem;
   aspect-ratio: 16/10;
   display: flex;
@@ -532,6 +517,9 @@ footer {
   }
   #card-projects {
     grid-template-rows: 1fr 3.5fr;
+  }
+  .projects-content {
+    width: 95%;
   }
   .caroussel {
     margin: 0;

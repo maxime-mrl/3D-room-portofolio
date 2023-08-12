@@ -25,29 +25,6 @@
         </button>
         <i class="fa-regular fa-moon"></i>
     </div>
-    <footer>
-        <div class="hint">
-            <button onclick="world.hint()">?</button>
-        </div>
-        <div class="cc">
-            <p>&copy; 2023 -&nbsp;</p>
-            <h1>Maxime Morel</h1>
-        </div>
-        <ul class="socials">
-            <li><a href="https://github.com/maxime-mrl" target="_blank">
-                <i class="fa-brands fa-github"></i>
-                <span class="hidden">Github</span>
-            </a></li>
-            <li><a href="https://www.behance.net/maxime-mrl" target="_blank">
-                <i class="fa-brands fa-behance"></i>
-                <span class="hidden">Behance</span>
-            </a></li>
-            <li><a href="https://instagram.com/maxime.morl?igshid=YmMyMTA2M2Y=" target="_blank">
-                <i class="fa-brands fa-instagram"></i>
-                <span class="hidden">Instagram</span>
-            </a></li>
-        </ul>
-    </footer>
 
     <section class="modal" id="projects">
         <button class="close-modal">
@@ -59,6 +36,17 @@
             <div class="caroussel">
                 <div class="caroussel-content">
                     <div class="active">
+                        <div class="bg">
+                            <video src="assets/video/icytrails.mp4" muted loop playsinline>
+                                Your browser doesn't support HTML5 video.
+                            </video>
+                        </div>
+                        <div class="text">
+                            <h3 class="subtitle">icytrails</h3>
+                            <a href="https://icytrails.maxime-morel.xyz" target="_blank" class="btn">Go check it out</a>
+                        </div>
+                    </div>
+                    <div class="hidden-slide">
                         <div class="bg">
                             <video src="assets/video/under-burger.mp4" muted loop playsinline>
                                 Your browser doesn't support HTML5 video.
@@ -78,17 +66,6 @@
                         <div class="text black-txt">
                             <h3 class="subtitle black">Crea Jardins</h3>
                             <a href="https://projects.maxime-morel.xyz/crea-jardins" target="_blank" class="btn black">Go check it out</a>
-                        </div>
-                    </div>
-                    <div class="hidden-slide">
-                        <div class="bg">
-                            <video src="assets/video/flappy-bird.mp4" muted loop playsinline>
-                                Your browser doesn't support HTML5 video.
-                            </video>
-                        </div>
-                        <div class="text">
-                            <h3 class="subtitle">flappy-bird recreation</h3>
-                            <a href="https://projects.maxime-morel.xyz/flappy-bird" target="_blank" class="btn">Go check it out</a>
                         </div>
                     </div>
                     <div class="hidden-slide">
@@ -133,27 +110,16 @@
             <i class="fa-solid fa-xmark"></i>
             <span class="hidden">close</span>
         </button>
-        <div class="form-container">
+        <div>
             <h2 class="h1">Get in touch!</h2>
-            <form id="contact-form">
-                <div id="first-name-container">
-                    <label for="first-name">Name</label>
-                    <input type="text" name="first-name" id="first-name" placeholder="Your name" data-err="Name required" required>
-                </div>
-                <div id="mail-container">
-                    <label for="mail">Mail</label>
-                    <input type="email" name="e-mail" id="mail" placeholder="Your mail" data-err="invalid/missing mail" required>
-                </div>
-                <div id="subject-container">
-                    <label for="subject">Subject</label>
-                    <input type="text" name="subject" id="subject" placeholder="Subject" data-err="Subject required" required>
-                </div>
-                <div id="message-container">
-                    <label for="message">Message</label>
-                    <textarea name="message" id="message" cols="30" rows="10" placeholder="Your message" data-err="message required from 10 to 500 characters" required></textarea>
-                </div>
-                <button onclick="contactForm.submitForm()" type="button">Submit</button> <!-- type button so it dosen't really submit the form, just simulate the submission -->
-            </form>
+            <div class="contact">
+                <h3 class="h3">A question? Project?</h3>
+                <h3 class="h3">Contact me over there!</h3>
+                <div class="space"></div>
+                <p class="h3"><i class="fa-solid fa-envelope"></i> &nbsp; By mail: &nbsp; <a href="mailto:contact@maxime-morel.xyz">contact@maxime-morel.xyz</a></p>
+                
+                <p class="h3"><i class="fa-brands fa-discord"></i> &nbsp; By discord: &nbsp; <a href="https://discordapp.com/users/270219307475140608" target="_blank">Here</a></p>
+            </div>
         </div>
     </section>
     <section class="modal" id="mobile-alert">
@@ -182,6 +148,30 @@
     <div class="render-container">
         <canvas></canvas>
     </div>
+    
+    <footer>
+        <div class="hint">
+            <button onclick="world.hint()">?</button>
+        </div>
+        <div class="cc">
+            <p>&copy; 2023 -&nbsp;</p>
+            <h1>Maxime Morel</h1>
+        </div>
+        <ul class="socials">
+            <li><a href="https://github.com/maxime-mrl" target="_blank">
+                <i class="fa-brands fa-github"></i>
+                <span class="hidden">Github</span>
+            </a></li>
+            <li><a href="https://www.behance.net/maxime-mrl" target="_blank">
+                <i class="fa-brands fa-behance"></i>
+                <span class="hidden">Behance</span>
+            </a></li>
+            <li><a href="https://instagram.com/maxime.morl?igshid=YmMyMTA2M2Y=" target="_blank">
+                <i class="fa-brands fa-instagram"></i>
+                <span class="hidden">Instagram</span>
+            </a></li>
+        </ul>
+    </footer>
 
     <div class="popup"></div>
     <script src="./script/index.js" type="module"></script>
