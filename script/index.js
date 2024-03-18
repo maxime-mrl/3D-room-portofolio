@@ -45,7 +45,7 @@ window.openModal = targetId => { // open modal
     activeModal = document.getElementById(targetId);
     activeModal.className = "modal modal-active";
     cancelAnimationFrame(world.frameRequest); // stop updating render to save perf
-    activeModal.addEventListener("click", modalClick);
+    activeModal.addEventListener("mousedown", modalClick);
     if (targetId == "projects") caroussel.oppen(); // play video caroussel video
 }
 
